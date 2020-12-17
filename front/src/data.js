@@ -8,7 +8,8 @@ const data ={
             price: 80,
             note:4.5,
             numReviews:10,
-            description:'Maillot Mtp tres bonne qualité'
+            description:'Maillot Mtp tres bonne qualité',
+            countInStock:50,
         },
         { _id:'2',
             name:'Chaise Gaming Mtp',
@@ -17,7 +18,8 @@ const data ={
             price: 250,
             note:5,
             numReviews:200,
-            description:'Chaise Gaming Mtp tres bonne qualité'
+            description:'Chaise Gaming Mtp tres bonne qualité',
+            countInStock:50,
         },
         {
             _id:'3',
@@ -27,7 +29,8 @@ const data ={
             price: 69,
             note:4.5,
             numReviews:140,
-            description:'Clavier Gaming MTP tres bonne qualité'
+            description:'Clavier Gaming MTP tres bonne qualité',
+            countInStock:50,
         },
         {
             _id:'4',
@@ -37,7 +40,8 @@ const data ={
             price: 220,
             note:5,
             numReviews:50,
-            description:'Ecran Gaming Mtp tres bonne qualité'
+            description:'Ecran Gaming Mtp tres bonne qualité',
+            countInStock:0,
         },
         {
             _id:'5',
@@ -47,7 +51,8 @@ const data ={
             price: 40,
             note:3.5,
             numReviews:30,
-            description:'Souris Gaming Mtp tres bonne qualité'
+            description:'Souris Gaming Mtp tres bonne qualité',
+            countInStock:50,
         },
         { _id:'6',
             name:'Tapis MTP Esport',
@@ -56,7 +61,8 @@ const data ={
             price: 20,
             note:5,
             numReviews:5,
-            description:'Tapis Mtp tres bonne qualité'
+            description:'Tapis Mtp tres bonne qualité',
+            countInStock:0,
         },
         { _id:'7',
             name:'Pc Gaming MTP Esport ',
@@ -65,7 +71,8 @@ const data ={
             price: 1600,
             note:5,
             numReviews:23,
-            description:'Pc Gaming Mtp tres bonne qualité'
+            description:'Pc Gaming Mtp tres bonne qualité',
+            countInStock:50,
         },
     ]
 }

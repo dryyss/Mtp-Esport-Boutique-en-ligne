@@ -13,7 +13,7 @@ export default function Product(props) {
           <h2>{product.name}</h2>
         </a>
         <Note note={product.note} numReviews={product.numReviews}></Note>
-      <div className="price">{product.price} €</div>
+      <div className="price">{product.price.toFixed(2)} €</div>
       </div>
     </div>
     )
