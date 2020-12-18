@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
-import  {Route, BrowserRouter } from 'react-router-dom'
+import  {Route, BrowserRouter, Link } from 'react-router-dom'
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
     <div className="grid-container">
         <header className="row">
         <div className="logo">
-          <a href="/"><img src="images\téléchargement.png" alt="logo" height="80px"/></a>
+          <Link to="/"><img src="../images/téléchargement.png" alt="logo" height="80px"/></Link>
         </div>
         <div className="nav-center">
           <ul>

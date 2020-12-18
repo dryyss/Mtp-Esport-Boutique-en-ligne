@@ -44,7 +44,7 @@ export default function ProductScreen(props) {
                                 </span> 
                             </button>
                             ) : (
-                            <span className="error">Rupture de Stock</span>
+                            <span className="danger">Rupture de Stock</span>
                             )}
                         </div> 
                   
