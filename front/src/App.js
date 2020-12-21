@@ -9,8 +9,9 @@ function App() {
     <div className="grid-container">
         <header className="row">
         <div className="logo">
-          <Link to="/"><img src="../images/téléchargement.png" alt="logo" height="80px"/></Link>
+          <Link to="/"><img src="../public/images/téléchargement.png" alt="logo" height="80px"/></Link>
         </div>
+
         <div className="nav-center">
           <ul>
             

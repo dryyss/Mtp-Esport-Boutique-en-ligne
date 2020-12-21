@@ -3,7 +3,7 @@ import axios from 'axios';
 import Product from '../components/Product';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-<import></import>
+
 
 
 export default function HomeScreen() {

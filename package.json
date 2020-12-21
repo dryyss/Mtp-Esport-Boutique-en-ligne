@@ -6,13 +6,16 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.21.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-plugin-react": "^7.21.5",
     "nodemon": "^2.0.6"
   },
   "scripts": {
-  "start": "nodemon --watch back --exec node --experimental-modules back/server.js"
+    "start": "nodemon --watch back --exec node --experimental-modules back/server.js"
   },
   "repository": {
     "type": "git",
