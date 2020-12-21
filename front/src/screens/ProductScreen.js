@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import{useDispatch, useSelector} from 'react-redux';
 import Note from '../components/Note';
 import {Link}  from 'react-router-dom';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
 import { detailsProduct } from '../actions/productActions';
+import MessageBox from '../components/MessageBox';
+import LoadingBox from '../components/LoadingBox';
 
 export default function ProductScreen(props) {
     const dispatch = useDispatch();
     const productId = props.match.params.id;
+    const [qty, setQty] = useState(1)
     const productDetails = useSelector(state => state.productDetails);
     const{ loading, error, product} = productDetails;
 useEffect(() => {
   dispatch(detailsProduct(productId));
-}, [dispatch, productId])
+}, [dispatch, productId]);
+const addToCartHandler = () => {
+    props.history.push(`/cart/${productId}?qty=${qty}`);
+};
 
     return (
         <div>
@@ -43,9 +47,24 @@ useEffect(() => {
                 </div>
                 </div>
                 <div className="actions-item">
+                   <div className="row">
+                        <div>Quantité</div>
+                        <div >
+                            <select className="button cartButton" value={qty} onChange={e => setQty(e.target.value)}>
+                                {
+                                    [...Array(product.countInStock).keys()].map(
+                                        (x) => (
+                                            <option key={x + 1} value={x + 1}>
+                                                {x + 1}
+                                            </option>
+                                        )
+                                    ) }
+                            </select>
+                        </div>
                     <div>
-                        {product.countInStock >0? (
-                            <button className="button cartButton">
+                        { product.countInStock > 0 ? (
+                            <button className="button cartButton"
+                             onClick={addToCartHandler}>
                                 <span>
                                     {product.price.toFixed(2)} € - Ajouter au Panier
                                 </span> 
@@ -53,10 +72,13 @@ useEffect(() => {
                             ) : (
                             <span className="danger">Rupture de Stock</span>
                             )}
-                        </div> 
+                    </div> 
+                    
+
+                </div>
                   
             </div>
-                </div>
+        </div>
                 {/* Todo: aria expanded */}
                
                  

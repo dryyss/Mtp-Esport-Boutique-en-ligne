@@ -2,6 +2,7 @@ import React from 'react';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import  {Route, BrowserRouter, Link } from 'react-router-dom'
+import CartScreen from './screens/CartScreen';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
     <div className="grid-container">
         <header className="row">
         <div className="logo">
-          <Link to="/"><img src="../public/images/téléchargement.png" alt="logo" height="80px"/></Link>
+          <Link to="/"><img src="/images/telechargement.png" alt="logo" height="80px"/></Link>
         </div>
 
         <div className="nav-center">
@@ -28,7 +29,7 @@ function App() {
       </header>
         
       <main> 
-        
+        <Route path="/cart/:id?"component={CartScreen}/>
         <Route path="/product/:id" component={ProductScreen}/>
         <Route path="/" component={HomeScreen} exact/>
         
