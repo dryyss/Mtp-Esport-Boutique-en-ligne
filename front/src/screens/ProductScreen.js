@@ -1,25 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import{useDispatch, useSelector} from 'react-redux';
 import Note from '../components/Note';
-import data from '../data';
 import {Link}  from 'react-router-dom';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { detailsProduct } from '../actions/productActions';
 
 export default function ProductScreen(props) {
-    const product = data.products.find((x) => x._id === props.match.params.id);
-    if(!product) { 
-   return <div className="text">
-        <span>Erreur 404</span>
-        <h2> Nous ne trouvons pas ce que vous recherchez.</h2>
-        <a href="/">
-            <span>Retour à la page d'accueil</span>
-        </a> 
-    </div>
-    }
+    const dispatch = useDispatch();
+    const productId = props.match.params.id;
+    const productDetails = useSelector(state => state.productDetails);
+    const{ loading, error, product} = productDetails;
+useEffect(() => {
+  dispatch(detailsProduct(productId));
+}, [dispatch, productId])
+
     return (
+        <div>
+        {loading? (
+        <LoadingBox/> 
+        ) : error ? ( 
+        <MessageBox variant="danger">{error}</MessageBox>
+        ):(
         <div>
             <Link to="/">Retour à la page d'accueil</Link>
         <div className="row top">
                 <div className="col-2">
-                    <div> <img className="large" src={product.image} alt={product.name}/></div>
+                    <div> <img className="large" src={product.image} alt={product.name}></img></div>
                 </div>
                 <div className="col-1">
                     <h1>{product.name}</h1>
@@ -52,7 +59,8 @@ export default function ProductScreen(props) {
                 </div>
                 {/* Todo: aria expanded */}
                
-               
+                 
+          </div>)}
         </div>
 
     )
