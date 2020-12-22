@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import MessageBox from '../components/MessageBox';
 
 export default function CartScreen(props) {
@@ -19,7 +19,7 @@ const dispatch = useDispatch()
     }, [dispatch, productId, qty]);
 
     const removeFromCartHandler =(id) =>{
-      // delete action
+     dispatch(removeFromCart(id));
     }
     const checkoutHandler =() => {
       props.history.push('/signin?redirect=shipping');
@@ -29,8 +29,8 @@ const dispatch = useDispatch()
       <div className="col-2">
         <h1>Panier({cartItems.length})</h1>
           {cartItems.length === 0?<MessageBox>
-            Le Panier est vide
-            <Link to="/">Commencer vos achats</Link>
+           <p>Le Panier est vide </p> 
+            <Link   className="button cartButton" to="/"> Commencer vos achats</Link>
             </MessageBox> 
             :(
               <ul>
