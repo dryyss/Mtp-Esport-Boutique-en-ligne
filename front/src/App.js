@@ -3,8 +3,11 @@ import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import  {Route, BrowserRouter, Link } from 'react-router-dom'
 import CartScreen from './screens/CartScreen';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
   return (
   <BrowserRouter>
     <div className="grid-container">
@@ -16,15 +19,18 @@ function App() {
         <div className="nav-center">
           <ul>
             
-            <a href="/vetements">Vetements</a>
-            <a href="/collections">Collections</a>
-            <a href="/chaises">Chaises</a>
-            <a href="/gaming">Gaming</a>
+            <Link to="/vetements">Vetements</Link>
+            <Link to="/collections">Collections</Link>
+            <Link to="/chaises">Chaises</Link>
+            <Link to="/gaming">Gaming</Link>
           </ul>
         </div>
         <div className="nav-right">
-          <a href="/cart">Panier</a>
-          <a href="/signin">Connexion</a>
+          <Link to="/cart"><i className="fas fa-shopping-cart">Panier</i> {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
+          </Link>
+          <Link to="/signin">Connexion</Link>
         </div>
       </header>
         

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import{useDispatch, useSelector} from 'react-redux';
 import Note from '../components/Note';
 import {Link}  from 'react-router-dom';
+import LoadingBox from '../components/LoadingBox';
 import { detailsProduct } from '../actions/productActions';
 import MessageBox from '../components/MessageBox';
-import LoadingBox from '../components/LoadingBox';
 
 export default function ProductScreen(props) {
     const dispatch = useDispatch();
@@ -47,7 +47,8 @@ const addToCartHandler = () => {
                 </div>
                 </div>
                 <div className="actions-item">
-                   <div className="row">
+                 { product.countInStock > 0 ? ( 
+                      <div className="row">
                         <div>Quantité</div>
                         <div >
                             <select className="button cartButton" value={qty} onChange={e => setQty(e.target.value)}>
@@ -62,21 +63,18 @@ const addToCartHandler = () => {
                             </select>
                         </div>
                     <div>
-                        { product.countInStock > 0 ? (
-                            <button className="button cartButton"
-                             onClick={addToCartHandler}>
-                                <span>
-                                    {product.price.toFixed(2)} € - Ajouter au Panier
-                                </span> 
-                            </button>
-                            ) : (
-                            <span className="danger">Rupture de Stock</span>
-                            )}
+                        <button className="button cartButton"
+                            onClick={addToCartHandler}>
+                            <span>
+                                {product.price.toFixed(2)} € - Ajouter au Panier
+                            </span> 
+                        </button>
                     </div> 
-                    
-
-                </div>
-                  
+                </div> 
+                 ) : (
+                    <span className="danger">Rupture de Stock</span>
+                           
+                   )}
             </div>
         </div>
                 {/* Todo: aria expanded */}
