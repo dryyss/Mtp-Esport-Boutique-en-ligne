@@ -26,13 +26,16 @@ const dispatch = useDispatch()
     }
   return (
     <div className="row top">
-      <div className="col-2">
+      <div className="col-2">  <div>
+            <Link to="/">Retour à la page d'accueil</Link>
+        </div>
         <h1>Panier({cartItems.length})</h1>
           {cartItems.length === 0?<MessageBox>
            <p>Le Panier est vide </p> 
             <Link   className="button cartButton" to="/"> Commencer vos achats</Link>
             </MessageBox> 
             :(
+              
               <ul>
                 {
                   cartItems.map((item) => (
@@ -67,7 +70,7 @@ const dispatch = useDispatch()
                          </select>
                         </div>
                         <div>
-                          {item.price.toFixed(2)}€
+                          {item.price.toFixed(2)} €
                         </div>
                         <div>
                           <button type="button" onClick={() => removeFromCartHandler(item.product)}>Supprimé</button>
@@ -88,7 +91,7 @@ const dispatch = useDispatch()
                 Sous-Total({cartItems.reduce((a,c) => a+c.qty, 0)} articles) 
               </h2>
             </li>
-            <li>  {cartItems.reduce((a,c) => a+c.price *c.qty, 0)} €</li>
+            <li>  {cartItems.reduce((a,c) => a+c.price *c.qty, 0).toFixed(2)} €</li>
             <li>
               <button type="button"
                 onClick={checkoutHandler}
