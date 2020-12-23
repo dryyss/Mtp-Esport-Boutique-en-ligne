@@ -234,3 +234,29 @@ img.medium {
   font-size: 1.4rem;
   margin-left: 0.2rem;
 }
+/* Form */
+.form {
+  max-width: 60rem;
+  margin: 0 auto;
+  font-weight: 500;
+  letter-spacing: 0;
+  background: transparent;
+  line-height: 1.5em;
+  width: 100%;
+  outline: none;
+  border: 2px transparent;
+  background: transparent;
+  line-height: 1.5em;
+  width: 100%;
+  outline: none;
+  border: 2px transparent;
+}
+.form > div {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.form label {
+  margin: 1rem 0;
+  display: block;
+}
