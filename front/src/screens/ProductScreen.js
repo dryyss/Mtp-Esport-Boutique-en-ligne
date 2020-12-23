@@ -51,7 +51,7 @@ const addToCartHandler = () => {
                       <div className="row">
                         <div>Quantité</div>
                         <div >
-                            <select className="button cartButton" value={qty} onChange={e => setQty(e.target.value)}>
+                            <select className="button cartButton " value={qty} onChange={e => setQty(e.target.value)}>
                                 {
                                     [...Array(product.countInStock).keys()].map(
                                         (x) => (

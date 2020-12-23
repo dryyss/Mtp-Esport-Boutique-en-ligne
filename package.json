@@ -12,7 +12,10 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.11.8",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {

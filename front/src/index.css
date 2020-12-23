@@ -125,6 +125,15 @@ header a {
 .row.center {
   justify-content: center;
 }
+.select-cart {
+  font-size: 1rem;
+  padding: 1rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: 5rem;
+  color: rgb(37, 36, 35);
+  border-bottom: 1px solid rgb(196, 196, 196);
+}
 /* Footer */
 footer a {
   color: #fff;
@@ -191,6 +200,10 @@ img.medium {
   background-color: #ffe0e0ff;
 }
 /* productscreen */
+.cart-card {
+  color: #fff;
+  background-color: #000000;
+}
 .cartButton {
   position: relative;
   display: inline-block;

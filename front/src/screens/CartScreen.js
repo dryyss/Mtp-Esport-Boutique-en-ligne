@@ -51,7 +51,7 @@ const dispatch = useDispatch()
                           <Link to={`/product/${item.product}`}>{item.name}</Link>
                         </div>
                         <div>
-                          <select 
+                          <select className="select select-cart"
                           value={item.qty} 
                           onChange={e => 
                             dispatch(

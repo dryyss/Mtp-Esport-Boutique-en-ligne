@@ -26,9 +26,9 @@ function App() {
           </ul>
         </div>
         <div className="nav-right">
-          <Link to="/cart"><i className="fas fa-shopping-cart">Panier</i> {cartItems.length > 0 && (
+          <Link to="/cart"><i class="fas fa-shopping-cart">{cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
-              )}
+              )}</i> 
           </Link>
           <Link to="/signin">Connexion</Link>
         </div>
