@@ -35,7 +35,7 @@ const data ={
     ],
     products:[
         {
-            _id:'1',
+            
             name:'Maillot MTP Esport ',
             category:'Vetements',
             image:'/images/Maillot1.jpg',
@@ -45,7 +45,7 @@ const data ={
             description:'Maillot Mtp tres bonne qualité',
             countInStock:50,
         },
-        { _id:'2',
+        { 
             name:'Chaise Gaming Mtp',
             category:'Chaise',
             image:'/images/chaise1.jpg',
@@ -56,7 +56,7 @@ const data ={
             countInStock:50,
         },
         {
-            _id:'3',
+            
             name:'Clavier Gaming MTP Esport',
             category:'Gaming',
             image:'/images/clavier1.jpg',
@@ -66,8 +66,7 @@ const data ={
             description:'Clavier Gaming MTP tres bonne qualité',
             countInStock:50,
         },
-        {
-            _id:'4',
+        {            
             name:'Ecran Gaming MTP Esport',
             category:'Gaming',
             image:'/images/ecran1.jpg',
@@ -78,7 +77,7 @@ const data ={
             countInStock:0,
         },
         {
-            _id:'5',
+            
             name:' Souris Gaming MTP Esport',
             category:'Gaming',
             image:'/images/souris1.jpg',
@@ -88,7 +87,7 @@ const data ={
             description:'Souris Gaming Mtp tres bonne qualité',
             countInStock:50,
         },
-        { _id:'6',
+        { 
             name:'Tapis MTP Esport',
             category:'Gaming',
             image:'/images/tapis1.jpg',
@@ -98,7 +97,7 @@ const data ={
             description:'Tapis Mtp tres bonne qualité',
             countInStock:0,
         },
-        { _id:'7',
+        { 
             name:'Pc Gaming MTP Esport ',
             category:'Gaming',
             image:'/images/pc1.jpg',
