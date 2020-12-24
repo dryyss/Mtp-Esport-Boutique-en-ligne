@@ -88,7 +88,7 @@ const dispatch = useDispatch()
           <ul>
             <li>
               <h2>
-                Sous-Total({cartItems.reduce((a,c) => a+c.qty, 0)} articles) 
+                Sous-Total ({cartItems.reduce((a,c) => a+c.qty, 0)} articles) 
               </h2>
             </li>
             <li>  {cartItems.reduce((a,c) => a+c.price *c.qty, 0).toFixed(2)} €</li>
