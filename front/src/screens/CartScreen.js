@@ -22,7 +22,7 @@ const dispatch = useDispatch()
      dispatch(removeFromCart(id));
     }
     const checkoutHandler =() => {
-      props.history.push('/signin?redirect=shipping');
+      props.history.push('/signin?redirect=contact_information');
     }
   return (
     <div className="row top">

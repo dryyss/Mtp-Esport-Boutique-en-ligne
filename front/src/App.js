@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import SigninScreen from './screens/SigninScreen';
 import { signout } from './actions/userActions';
 import RegisterScreen from './screens/RegisterScreen';
+import ContactInformationScreen from './screens/ContactInformationScreen';
+import PaymentMethodsScreen from './screens/PaymentMethodsScreen';
+import ShippingMethodsScreen from './screens/ShippingMethodsScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -50,12 +53,16 @@ function App() {
                 </ul>
               </div>
               ) : (
-               <Link to ="/register">Insciption</Link> && <Link to ="/signin">Connexion</Link>
+                <div className="nav-right">
+                <Link to ="/register">Inscription</Link> <Link to ="/signin">Connexion</Link></div>
               )}
         </div>
       </header>
         
       <main> 
+        <Route path="/shipping_methods" component={ShippingMethodsScreen}></Route>
+        <Route path="/payment_method" component={PaymentMethodsScreen}></Route>
+        <Route path="/contact_information" component={ContactInformationScreen}/>
         <Route path="/register" component={RegisterScreen}/>
         <Route path="/signin" component={SigninScreen}/>
         <Route path="/cart/:id?"component={CartScreen}/>
@@ -64,7 +71,7 @@ function App() {
         
       </main>
       <footer className="row center">
-       Copyright © 2020 Montpellier Talent Players - <a href="/politique"> Politique de confidentialité </a>- <a href="/mention">Mentions légales</a>
+       Copyright © 2020 Montpellier Talent Players - <a href="/politique"> &nbsp;Politique de confidentialité  - </a><a href="/mention"> &nbsp;Mentions légales</a>
       </footer>
     </div>
   </BrowserRouter>
