@@ -26,7 +26,7 @@ const dispatch = useDispatch()
     }
   return (
     <div className="row top">
-      <div className="col-2">  <div>
+      <div className="col-2 cart_items">  <div>
             <Link to="/">Retour à la page d'accueil</Link>
         </div>
         <h1>Panier({cartItems.length})</h1>
@@ -37,6 +37,7 @@ const dispatch = useDispatch()
             :(
               
               <ul>
+                <hr/>
                 {
                   cartItems.map((item) => (
                     <li key={item.product}>
@@ -75,9 +76,10 @@ const dispatch = useDispatch()
                         <div>
                           <button type="button" onClick={() => removeFromCartHandler(item.product)}>Supprimé</button>
                         </div>
-                      </div>
-                    </li>
+                      </div> <hr/>
+                    </li> 
                   ))
+               
                 }
               </ul>
             )

@@ -38,7 +38,7 @@ function App() {
           </ul>
         </div>
         <div className="nav-right">
-          <Link to="/cart"><i class="fas fa-shopping-cart">{cartItems.length > 0 && (
+          <Link to="/cart"><i className="fas fa-shopping-cart">{cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
               )}</i> 
           </Link>
@@ -47,7 +47,7 @@ function App() {
           {
             userInfo ?(
               <div className="dropdown user-dropdown">
-              <Link to="#">{userInfo.name} <i class="fas fa-caret-down"></i></Link> 
+              <Link to="#">{userInfo.name} <i className="fas fa-caret-down"></i></Link> 
                 <ul className="dropdown-content">
                   <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
                 </ul>
@@ -61,7 +61,7 @@ function App() {
         
       <main> 
         <Route path="/shipping_methods" component={ShippingMethodsScreen}></Route>
-        <Route path="/payment_method" component={PaymentMethodsScreen}></Route>
+        <Route path="/payment_methods" component={PaymentMethodsScreen}></Route>
         <Route path="/contact_information" component={ContactInformationScreen}/>
         <Route path="/register" component={RegisterScreen}/>
         <Route path="/signin" component={SigninScreen}/>
@@ -71,7 +71,7 @@ function App() {
         
       </main>
       <footer className="row center">
-       Copyright © 2020 Montpellier Talent Players - <a href="/politique"> &nbsp;Politique de confidentialité  - </a><a href="/mention"> &nbsp;Mentions légales</a>
+       Copyright © 2020 Montpellier Talent Players - <a href="/politique"> &nbsp;Politique de confidentialité   </a> &nbsp;- <a href="/mention"> &nbsp;Mentions légales</a>
       </footer>
     </div>
   </BrowserRouter>

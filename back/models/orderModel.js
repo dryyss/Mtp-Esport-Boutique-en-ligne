@@ -16,11 +16,15 @@ const orderSchema = new mongoose.Schema(
       },
     ],
     shippingAddress: {
-      fullName: { type: String, required: true },
+      email: { type: String, required: true },
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+      address2: { type: String, required: false },
       address: { type: String, required: true },
       city: { type: String, required: true },
       postalCode: { type: String, required: true },
       country: { type: String, required: true },
+      telephone: { type: String, required: false },
     },
     paymentMethod: { type: String, required: true },
     paymentResult:{

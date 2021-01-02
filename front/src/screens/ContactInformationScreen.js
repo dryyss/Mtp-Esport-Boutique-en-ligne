@@ -1,5 +1,5 @@
 
-import React, {  useEffect, useState } from 'react'
+import React, {   useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -43,7 +43,7 @@ export default function ContactInformationScreen(props) {
     return (
         <div>
             <CheckoutSteps contact_information></CheckoutSteps>
-            <div>
+            <div className="d_flex gap-20">
                 <form className="form" onSubmit={submitHandler}>
                     
                     <div className="contact-info">
@@ -53,6 +53,7 @@ export default function ContactInformationScreen(props) {
                                 <div className="section_content">
                                     <label htmlFor="email">E-mail</label>
                                     <input
+                                        className="field_input"
                                         type="text"
                                         id="email"
                                         placeholder= {userInfo.email}
@@ -66,27 +67,32 @@ export default function ContactInformationScreen(props) {
                                 <div className="section_header">
                                     <h2 className="section_title">Adresse de livraison</h2>
                                 </div>
-                                <div className="section_content form-fullName">
-                                    <label htmlFor="firstName">Prénom</label>
-                                    <input
-                                        type="text"
-                                        id="firstName"
-                                        placeholder="Prénom"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)} 
-                                        required  />
-                                    
-                                </div>
-                                <div className="section_content form-fullName">
-                                <label htmlFor="lastName">Nom</label>
-                                        <input  
+                                <div className="section_content_fullName">
+                                    <div className="section_content form-fullName">
+                                        <label htmlFor="firstName">Prénom</label>
+                                        <input
+                                            className="field_input_fullname"
                                             type="text"
-                                            id="lastName"
-                                            placeholder="Nom"
-                                            value={lastName}
-                                            onChange={(e) => setLastName(e.target.value)} 
+                                            id="firstName"
+                                            placeholder="Prénom"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)} 
                                             required  />
+                                        
+                                    </div>
+                                    <div className="section_content form-fullName">
+                                    <label htmlFor="lastName">Nom</label>
+                                            <input  
+                                                className="field_input_fullname"
+                                                type="text"
+                                                id="lastName"
+                                                placeholder="Nom"
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)} 
+                                                required  />                                       
+                                    </div>
                                 </div>
+                                
                                 <div className="section_content">
                                     <label htmlFor="address">Adresse</label>
                                     <input className="field_input"
@@ -106,7 +112,9 @@ export default function ContactInformationScreen(props) {
                                         value={address2}
                                         onChange={(e) => setAddress2(e.target.value)} 
                                     />
+                                   
                                 </div>
+                                <div className="section_fullAddress">
                                 <div className="section_content">
                                     <label htmlFor="postalCode">Code postal</label>
                                     <input
@@ -129,37 +137,35 @@ export default function ContactInformationScreen(props) {
                                 </div>
                                 <div className="section_content">
                                     <label htmlFor="country">Pays/Région</label>
-                                        <select size="1"  aria-required="true" name="checkout[address][country]" id="country"
+                                        <select  className="select-country" size="1"  aria-required="true" name="checkout[address][country]" id="country"
                                         placeholder="Pays/Région"
                                         value={country}
                                         onChange={(e) => setCountry(e.target.value)} 
                                         required >
-                                            <option data-code="DE" value="Germany">Allemagne</option>
                                             <option data-code="FR" value="France">France</option>
-                                            <option data-code="GB" value="United Kingdom">Royaume-Uni</option>
-                                            <option data-code="ES" value="Spain">Espagne</option>
-                                            <option data-code="DE" value="Germany">Allemagne</option>
-                                            <option data-code="AT" value="Austria">Autriche</option>
-                                            <option data-code="BE" value="Belgium">Belgique</option>
-                                            <option data-code="DK" value="Denmark">Danemark</option>
-                                            <option data-code="ES" value="Spain">Espagne</option>
-                                            <option data-code="FI" value="Finland">Finlande</option>
-                                            <option data-code="FR" value="France">France</option>
-                                            <option data-code="GR" value="Greece">Grèce</option>
-                                            <option data-code="HU" value="Hungary">Hongrie</option>
-                                            <option data-code="IE" value="Ireland">Irlande</option>
-                                            <option data-code="IT" value="Italy">Italie</option>
+                                            <option data-code="GB" value="United Kingdom">United Kingdom</option>
+                                            <option data-code="DE" value="Germany">Germany</option>
+                                            <option data-code="AT" value="Austria">Austria</option>
+                                            <option data-code="BE" value="Belgium">Belgium</option>
+                                            <option data-code="DK" value="Denmark">Denmark</option>
+                                            <option data-code="ES" value="Spain">Spain</option>
+                                            <option data-code="FI" value="Finland">Finland</option>
+                                            <option data-code="GR" value="Greece">Greece</option>
+                                            <option data-code="HU" value="Hungary">Hungary</option>
+                                            <option data-code="IE" value="Ireland">Ireland</option>
+                                            <option data-code="IT" value="Italy">Italy</option>
                                             <option data-code="LU" value="Luxembourg">Luxembourg</option>
-                                            <option data-code="NO" value="Norway">Norvège</option>
-                                            <option data-code="NL" value="Netherlands">Pays-Bas</option>
-                                            <option data-code="PL" value="Poland">Pologne</option>
+                                            <option data-code="NO" value="Norway">Norway</option>
+                                            <option data-code="NL" value="Netherlands">Netherlands</option>
+                                            <option data-code="PL" value="Poland">Poland</option>
                                             <option data-code="PT" value="Portugal">Portugal</option>
-                                            <option data-code="RO" value="Romania">Roumanie</option>
-                                            <option data-code="SE" value="Sweden">Suède</option>
-                                            <option data-code="CH" value="Switzerland">Suisse</option>
-                                            <option data-code="CZ" value="Czech Republic">Tchéquie</option>
-                                            <option data-code="TR" value="Turkey">Turquie</option>
+                                            <option data-code="RO" value="Romania">Romania</option>
+                                            <option data-code="SE" value="Sweden">Sweden</option>
+                                            <option data-code="CH" value="Switzerland">Switzerland</option>
+                                            <option data-code="CZ" value="Czech Republic">Czech Republic</option>
+                                            <option data-code="TR" value="Turkey">Turkey</option>
                                         </select>
+                                    </div>
                                 </div>
                                 <div className="section_content">
                                     <label htmlFor="telephone">Téléphone</label>
@@ -174,38 +180,41 @@ export default function ContactInformationScreen(props) {
                              </div> 
                         <div className="step_footer">
                             <button className="button  payment-button" type="submit">
-                                        Passer à la méthode de livraison
+                                        Livraison
                             </button>
                         </div>
                     </div>
                 </form>
-                <div className="sidebar">
-                    <ul>
-                    {cartItems.map((item) => (
-                        <li key={item.product}>
-                            <div className="row">
-                                <div>
-                                <img 
-                                    src={item.image}
-                                    alt={item.name} 
-                                    className="small"/>
-                                </div>
-                                <div className="min-30">
-                                    {item.name}
-                                </div>
-                                <div>
-                                    <span>Quantité: {item.qty}</span> 
-                                </div>
-                                <div>
-                                    {item.price.toFixed(2)} €
-                                </div>
-                             </div>
-                         </li>
-                    ))}
-                       <TotalPrice></TotalPrice>
-                    </ul>
+                   <div className="sidebar">
+                        <ul>
+                            <div className="product-summary">
+                                
+                                
+                                    { cart.cartItems.map((item) => (
+                                    <li key={item.product}>
+                                        <div className="row summary">
+                                            <div>
+                                            <img 
+                                                src={item.image}
+                                                alt={item.name} 
+                                                className="small"/>
+                                                
+                                            </div>
+                                            <span className="product-thumbnail__quantity"> {item.qty}</span> 
+                                        
+                                           <div className="min-30">
+                                                {item.name}
+                                            </div>  
+                                            <div>
+                                                {item.price.toFixed(2)} €
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </div>
+                            <TotalPrice></TotalPrice>
+                        </ul>
                 </div>
-                
             </div>
         </div>
     )
