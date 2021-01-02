@@ -257,9 +257,9 @@ img.medium {
 }
 
 .badge {
-  background-color: #ff0022;
+  background-color: #b1165a;
   color: #fff;
-  border-radius: 50%;
+  border-radius: 100%;
   padding: 0.2rem 0.7rem;
   font-size: 1.4rem;
   margin-left: 0.2rem;
@@ -360,8 +360,8 @@ button {
   text-align: center;
 }
 .checkout-steps > div.active {
-  border-top-color: #f08000;
-  color: #f08000;
+  border-top-color: #b1165a;
+  color: #b1165a;
 }
 .alternative-payment-separator {
   display: -webkit-box;
@@ -468,7 +468,7 @@ hr {
   white-space: nowrap;
   text-align: center;
   border-radius: 1.75em;
-  background-color: rgb(255 0 0 / 90%);
+  background-color: #b1165a;
   color: #fff;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -482,7 +482,4 @@ hr {
 }
 .summary {
   margin-right: 4rem;
-}
-.cart_items {
-  /* margin-right: 2rem; */
 }
