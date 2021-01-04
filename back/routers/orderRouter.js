@@ -33,7 +33,7 @@ orderRouter.post(
       const createdOrder = await order.save();
       res
         .status(201)
-        .send({ message: 'Nouvelle Commande crée', order: createdOrder });
+        .send({ message: 'Nouvelle Commande passée', order: createdOrder });
     }
   })
 );

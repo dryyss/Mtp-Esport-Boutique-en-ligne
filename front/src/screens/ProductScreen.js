@@ -29,23 +29,25 @@ const addToCartHandler = () => {
         <div>
             <Link to="/">Retour à la page d'accueil</Link>
         <div className="row top">
-                <div className="col-2">
+                <div className="col-2 ">
+                  
                     <div> <img className="large" src={product.image} alt={product.name}></img></div>
-                </div>
+                </div>  
+                <div className="card">
                 <div className="col-1">
                     <h1>{product.name}</h1>
                     <div className="price">
                         {product.price.toFixed(2)} €
                     </div>
                     <div className="description">
-                    <div>{product.description}</div>    
-                </div>
-                 <div> 
-                    <Note   note={product.note}
-                            numReviews={product.numReviews}
-                    />
-                </div>
-                </div>
+                        <div>{product.description}</div>    
+                    </div>
+                    <div> 
+                        <Note   note={product.note}
+                                numReviews={product.numReviews}
+                        />
+                    </div>
+                
                 <div className="actions-item">
                  { product.countInStock > 0 ? ( 
                       <div className="row">
@@ -75,6 +77,7 @@ const addToCartHandler = () => {
                     <span className="danger">Rupture de Stock</span>
                            
                    )}
+            </div></div>
             </div>
         </div>
                 {/* Todo: aria expanded */}

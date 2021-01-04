@@ -134,7 +134,6 @@ header a {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-right: 4rem;
 }
 .row.top {
   align-items: flex-start;
@@ -169,7 +168,7 @@ img {
   border: 0.5rem;
 }
 img.large {
-  width: 100%;
+  width: 55%;
 }
 img.small {
   max-width: 15rem;
@@ -314,11 +313,11 @@ button {
   width: 100%;
 }
 .select-cart {
-  font-size: 1rem;
+  font-size: 2rem;
   padding: 1rem;
   margin-top: 0px;
   margin-bottom: 0px;
-  width: 5rem;
+  width: 7rem;
   color: rgb(37, 36, 35);
   border-bottom: 1px solid rgb(196, 196, 196);
 }

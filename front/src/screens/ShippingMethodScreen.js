@@ -1,19 +1,27 @@
 
-import React, {   useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../actions/cartActions';
+import { createOrder } from '../actions/orderAction';
 import CheckoutSteps from '../components/CheckoutSteps'
 import TotalPrice from '../components/TotalPrice';
+import {  ORDER_CREATE_REQUEST,  } from '../constants/orderConstants';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
-export default function ContactInformationScreen(props) {
-
-    const cart = useSelector(state => state.cart);
-    const {cartItems, shippingAddress} = cart;
-    const userSignin = useSelector(state => state.userSignin);
-    const {userInfo} = userSignin; 
-    if(!userInfo){
+export default function ShippingMethodScreen(props) {
+const userSignin = useSelector(state => state.userSignin);
+     const {userInfo} = userSignin; 
+     const orderCreate = useSelector((state) => state.orderCreate);
+     const {  loading,success,error, order } = orderCreate;
+ if(!userInfo){
         props.history.push('/signin')
     }
+    const cart = useSelector(state => state.cart);
+    const { shippingAddress} = cart;
+    
+    const toPrice = (num) => Number(num.toFixed(2)); 
+    cart.shippingPrice = cart.itemsPrice > 150 ? toPrice(0) : toPrice(10);
     const [email, setEmail] = useState(shippingAddress.email);
     const [firstName, setFirstName] = useState(shippingAddress.firstName);
     const [lastName, setLastName] = useState(shippingAddress.lastName);
@@ -23,6 +31,7 @@ export default function ContactInformationScreen(props) {
     const [city, setCity] = useState(shippingAddress.city);
     const [country, setCountry] = useState(shippingAddress.country);
     const [telephone, setTelephone] = useState(shippingAddress.telephone);
+    const dispatch = useDispatch(); 
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(saveShippingAddress({
@@ -33,90 +42,92 @@ export default function ContactInformationScreen(props) {
             postalCode,
             city,
             country,
-        })   )
-           props.history.push('shipping_methods');
         
+        }))
+         dispatch(createOrder({ 
+             ...cart,
+              orderItems: cart.cartItems
+        }
+       ))
     };
-  
-    const dispatch = useDispatch();
-  
+
+     useEffect(() => {
+            if (success) {
+              props.history.push(`/payment_methods/${order._id}`);
+              dispatch({ type: ORDER_CREATE_REQUEST });
+            }
+          }, [dispatch, order, props.history, success]);  
     return (
         <div>
-            <CheckoutSteps contact_information></CheckoutSteps>
+            <CheckoutSteps shipping_method></CheckoutSteps>
             <div className="d_flex gap-20">
                 <form className="form" onSubmit={submitHandler}>
-                    
                     <div className="contact-info">
-                         <h2>Information de contact</h2>                  
-                            <div className="logged-in-customer-information__paragraph">
-                               
-                                <div className="section_content">
-                                    <label htmlFor="email">E-mail</label>
-                                    <input
-                                        className="field_input"
-                                        type="text"
-                                        id="email"
-                                        placeholder= {userInfo.email}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)} 
-                                        required  />
-                                </div>
+                        <h2>Information de contact</h2>                  
+                        <div className="logged-in-customer-information__paragraph">
+                            <div className="section_content">
+                                <label htmlFor="email">E-mail *</label>
+                                <input
+                                    className="field_input"
+                                    type="text"
+                                    id="email"
+                                    placeholder= {userInfo.email}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)} 
+                                    required  />
                             </div>
-                        
-                            <div className=" section section--shipping-address">
-                                <div className="section_header">
-                                    <h2 className="section_title">Adresse de livraison</h2>
+                        </div>
+                        <div className=" section section--shipping-address">
+                            <div className="section_header">
+                                <h2 className="section_title">Adresse de livraison </h2>
+                            </div>
+                            <div className="section_content_fullName">
+                                <div className="section_content form-fullName">
+                                    <label htmlFor="firstName">Prénom *</label>
+                                    <input
+                                        className="field_input_fullname"
+                                        type="text"
+                                        id="firstName"
+                                        placeholder="Prénom"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)} 
+                                        required  />                                
                                 </div>
-                                <div className="section_content_fullName">
-                                    <div className="section_content form-fullName">
-                                        <label htmlFor="firstName">Prénom</label>
-                                        <input
+                                <div className="section_content form-fullName">
+                                    <label htmlFor="lastName">Nom *</label>
+                                        <input  
                                             className="field_input_fullname"
                                             type="text"
-                                            id="firstName"
-                                            placeholder="Prénom"
-                                            value={firstName}
-                                            onChange={(e) => setFirstName(e.target.value)} 
-                                            required  />
-                                        
-                                    </div>
-                                    <div className="section_content form-fullName">
-                                    <label htmlFor="lastName">Nom</label>
-                                            <input  
-                                                className="field_input_fullname"
-                                                type="text"
-                                                id="lastName"
-                                                placeholder="Nom"
-                                                value={lastName}
-                                                onChange={(e) => setLastName(e.target.value)} 
-                                                required  />                                       
-                                    </div>
+                                            id="lastName"
+                                            placeholder="Nom"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)} 
+                                            required  />                                       
                                 </div>
-                                
+                            </div>                            
+                            <div className="section_content">
+                                <label htmlFor="address">Adresse *</label>
+                                <input className="field_input"
+                                    type="text"
+                                    id="address"
+                                    placeholder="Adresse"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}                                       
+                                    required  />
+                            </div>
+                            <div className="section_content">
+                                <label htmlFor="address2"></label>
+                                <input className="field_input"
+                                    type="text"
+                                    id="address2"
+                                    placeholder="Appartement, chambre, etc. (facultatif)"   
+                                    value={address2}
+                                    onChange={(e) => setAddress2(e.target.value)} 
+                                />                                   
+                            </div>
+                            <div className="section_fullAddress">
                                 <div className="section_content">
-                                    <label htmlFor="address">Adresse</label>
-                                    <input className="field_input"
-                                        type="text"
-                                        id="address"
-                                        placeholder="Adresse"
-                                        value={address}
-                                        onChange={(e) => setAddress(e.target.value)} 
-                                        required  />
-                                </div>
-                                <div className="section_content">
-                                    <label htmlFor="address2"></label>
-                                    <input className="field_input"
-                                        type="text"
-                                        id="address2"
-                                        placeholder="Appartement, chambre, etc. (facultatif)"   
-                                        value={address2}
-                                        onChange={(e) => setAddress2(e.target.value)} 
-                                    />
-                                   
-                                </div>
-                                <div className="section_fullAddress">
-                                <div className="section_content">
-                                    <label htmlFor="postalCode">Code postal</label>
+                                    <label htmlFor="postalCode">Code postal *</label>
                                     <input
                                         type="text"
                                         id="postalCode"
@@ -126,7 +137,7 @@ export default function ContactInformationScreen(props) {
                                         required  />
                                 </div>
                                 <div className="section_content">
-                                    <label htmlFor="city">Ville</label>
+                                    <label htmlFor="city">Ville *</label>
                                     <input 
                                         type="text"
                                         id="city"
@@ -136,7 +147,7 @@ export default function ContactInformationScreen(props) {
                                         required  />
                                 </div>
                                 <div className="section_content">
-                                    <label htmlFor="country">Pays/Région</label>
+                                    <label htmlFor="country">Pays/Région *</label>
                                         <select  className="select-country" size="1"  aria-required="true" name="checkout[address][country]" id="country"
                                         placeholder="Pays/Région"
                                         value={country}
@@ -168,41 +179,55 @@ export default function ContactInformationScreen(props) {
                                     </div>
                                 </div>
                                 <div className="section_content">
-                                    <label htmlFor="telephone">Téléphone</label>
+                                    <label htmlFor="telephone">Téléphone </label>
                                     <input className="field_input"
                                         type="text"
                                         id="telephone"
-                                        placeholder="Téléphone"
+                                        placeholder="Téléphone (facultatif)"
                                         value={telephone}
                                         onChange={(e) => setTelephone(e.target.value)} 
                                         />
                                 </div>   
                              </div> 
-                        <div className="step_footer">
-                            <button className="button  payment-button" type="submit">
-                                        Livraison
-                            </button>
+                             <div className="shipping-methods">
+                    <div className="section_header">
+                        <h2>Méthode de livraison</h2>
+                    </div>
+                    <div className="content-box">
+                        <div className="section_content">
+                            <div className="radio_input"> 
+                                <span>	Frais de port fixes</span>
+                                <th>
+                                    Livraison: {cart.shippingPrice.toFixed(2)} € 
+                                    <input type="radio" defaultChecked required/>  
+                                </th>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
+                    <div className="step_footer">
+                        <button className="button  payment-button" type="submit">
+                            Livraison
+                        </button>
+                            { loading && <LoadingBox></LoadingBox>}
+              {error && <MessageBox variant="danger">{error}</MessageBox>}
+                    </div>
+                </div>
+            </form>
                    <div className="sidebar">
                         <ul>
                             <div className="product-summary">
-                                
-                                
-                                    { cart.cartItems.map((item) => (
+                                { cart.cartItems.map((item) => (
                                     <li key={item.product}>
                                         <div className="row summary">
                                             <div>
-                                            <img 
-                                                src={item.image}
-                                                alt={item.name} 
-                                                className="small"/>
-                                                
+                                                <img 
+                                                    src={item.image}
+                                                    alt={item.name} 
+                                                    className="small"/>
                                             </div>
                                             <span className="product-thumbnail__quantity"> {item.qty}</span> 
-                                        
-                                           <div className="min-30">
+                                            <div className="min-30">
                                                 {item.name}
                                             </div>  
                                             <div>
@@ -214,8 +239,8 @@ export default function ContactInformationScreen(props) {
                             </div>
                             <TotalPrice></TotalPrice>
                         </ul>
-                </div>
-            </div>
+                    </div>
         </div>
-    )
-}
+    </div>
+)}
+

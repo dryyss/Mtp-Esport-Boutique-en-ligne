@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import SigninScreen from './screens/SigninScreen';
 import { signout } from './actions/userActions';
 import RegisterScreen from './screens/RegisterScreen';
-import ContactInformationScreen from './screens/ContactInformationScreen';
 import PaymentMethodsScreen from './screens/PaymentMethodsScreen';
-import ShippingMethodsScreen from './screens/ShippingMethodsScreen';
+import ShippingMethodScreen from './screens/ShippingMethodScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -60,9 +59,9 @@ function App() {
       </header>
         
       <main> 
-        <Route path="/shipping_methods" component={ShippingMethodsScreen}></Route>
-        <Route path="/payment_methods" component={PaymentMethodsScreen}></Route>
-        <Route path="/contact_information" component={ContactInformationScreen}/>
+      {/* todo ajouter lid dans la route maiment methods(/:id) */}
+        <Route path="/payment_methods/:id" component={PaymentMethodsScreen}/>
+        <Route path="/shipping_methods" component={ShippingMethodScreen}/>
         <Route path="/register" component={RegisterScreen}/>
         <Route path="/signin" component={SigninScreen}/>
         <Route path="/cart/:id?"component={CartScreen}/>
