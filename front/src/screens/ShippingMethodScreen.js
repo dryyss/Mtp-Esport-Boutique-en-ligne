@@ -6,14 +6,12 @@ import { createOrder } from '../actions/orderAction';
 import CheckoutSteps from '../components/CheckoutSteps'
 import TotalPrice from '../components/TotalPrice';
 import {  ORDER_CREATE_REQUEST,  } from '../constants/orderConstants';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
 
 export default function ShippingMethodScreen(props) {
 const userSignin = useSelector(state => state.userSignin);
      const {userInfo} = userSignin; 
      const orderCreate = useSelector((state) => state.orderCreate);
-     const {  loading,success,error, order } = orderCreate;
+     const {  success, order } = orderCreate;
  if(!userInfo){
         props.history.push('/signin')
     }
@@ -209,38 +207,38 @@ const userSignin = useSelector(state => state.userSignin);
                         <button className="button  payment-button" type="submit">
                             Livraison
                         </button>
-                            { loading && <LoadingBox></LoadingBox>}
-              {error && <MessageBox variant="danger">{error}</MessageBox>}
+                            {/* { loading && <LoadingBox></LoadingBox>}
+              {error && <MessageBox variant="danger">{error}</MessageBox>} */}
                     </div>
                 </div>
             </form>
-                   <div className="sidebar">
-                        <ul>
-                            <div className="product-summary">
-                                { cart.cartItems.map((item) => (
-                                    <li key={item.product}>
-                                        <div className="row summary">
-                                            <div>
-                                                <img 
-                                                    src={item.image}
-                                                    alt={item.name} 
-                                                    className="small"/>
+                    <div className="sidebar">
+                            <ul>
+                                <div className="product-summary">
+                                    { cart.cartItems.map((item) => (
+                                        <li key={item.product}>
+                                            <div className="row summary">
+                                                <div>
+                                                    <img 
+                                                        src={item.image}
+                                                        alt={item.name} 
+                                                        className="small"/>
+                                                </div>
+                                                <span className="product-thumbnail__quantity"> {item.qty}</span> 
+                                                <div className="min-30">
+                                                    {item.name}
+                                                </div>  
+                                                <div>
+                                                    {item.price.toFixed(2)} €
+                                                </div>
                                             </div>
-                                            <span className="product-thumbnail__quantity"> {item.qty}</span> 
-                                            <div className="min-30">
-                                                {item.name}
-                                            </div>  
-                                            <div>
-                                                {item.price.toFixed(2)} €
-                                            </div>
-                                        </div>
-                                    </li>
-                                ))}
-                            </div>
-                            <TotalPrice></TotalPrice>
-                        </ul>
-                    </div>
-        </div>
+                                        </li>
+                                    ))}
+                                </div>
+                                <TotalPrice></TotalPrice>
+                            </ul>
+                        </div>
+            </div>
     </div>
 )}
 

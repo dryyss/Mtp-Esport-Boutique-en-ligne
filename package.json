@@ -20,6 +20,7 @@
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
+    "react-paypal-button-v2": "^2.6.2",
     "redux-thunk": "^2.3.0",
     "stripe": "^8.129.0"
   },

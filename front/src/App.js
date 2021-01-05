@@ -59,7 +59,6 @@ function App() {
       </header>
         
       <main> 
-      {/* todo ajouter lid dans la route maiment methods(/:id) */}
         <Route path="/payment_methods/:id" component={PaymentMethodsScreen}/>
         <Route path="/shipping_methods" component={ShippingMethodScreen}/>
         <Route path="/register" component={RegisterScreen}/>
