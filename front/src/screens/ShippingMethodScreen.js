@@ -18,9 +18,9 @@ const userSignin = useSelector(state => state.userSignin);
     
     const toPrice = (num) => Number(num.toFixed(2)); 
     cart.shippingPrice = cart.itemsPrice > 150 ? toPrice(0) : toPrice(10);
-    const [email, setEmail] = useState(shippingAddress.email);
-    const [firstName, setFirstName] = useState(shippingAddress.firstName);
-    const [lastName, setLastName] = useState(shippingAddress.lastName);
+    const [email, setEmail] = useState(shippingAddress.email || userInfo.email);
+    const [firstName, setFirstName] = useState(shippingAddress.firstName || userInfo.firstName);
+    const [lastName, setLastName] = useState(shippingAddress.lastName || userInfo.lastName);
     const [address, setAddress] = useState(shippingAddress.address);
     const [address2, setAddress2] = useState(shippingAddress.address2);
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
@@ -46,7 +46,7 @@ const userSignin = useSelector(state => state.userSignin);
        ))
     };
 
-     useEffect(() => {
+    useEffect(() => {
             if (success) {
               props.history.push(`/payment_methods/${order._id}`);
               dispatch({ type: ORDER_CREATE_REQUEST });
@@ -69,8 +69,8 @@ const userSignin = useSelector(state => state.userSignin);
                                     className="field_input"
                                     type="text"
                                     id="email"
-                                    placeholder = "{userInfo.email}"
-                                    value = {email}
+                                    placeholder="email"
+                                    value={email}
                                     onChange={(e) => setEmail(e.target.value)} 
                                     required  />
                             </div>
