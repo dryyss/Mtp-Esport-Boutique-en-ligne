@@ -68,7 +68,7 @@ const addToCartHandler = () => {
                         <button className="button  payment-button"
                             onClick={addToCartHandler}>
                             <span>
-                                {product.price.toFixed(2)} € - Ajouter au Panier
+                                 Ajouter au Panier
                             </span> 
                         </button>
                     </div> 

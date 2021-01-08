@@ -3,13 +3,14 @@ import bcrypt from 'bcryptjs';
 const data ={
     users: [
         {
-            name: 'Andrys',
+            firstName:'Andrys',
+            name: 'Magar',
             email:'AndrysAdmin@Mtp.com',
             password:  bcrypt.hashSync('1234' ,8),
             isAdmin: true
         },
-        {
-            name: 'Pierre',
+        {   firstName:'Pierre',
+            name: 'Pastor',
             email:'PierreAdmin@Mtp.com',
             password: bcrypt.hashSync('1234' ,8),
             isAdmin: true
@@ -35,7 +36,6 @@ const data ={
     ],
     products:[
         {
-            
             name:'Maillot MTP Esport ',
             category:'Vetements',
             image:'/images/Maillot1.jpg',

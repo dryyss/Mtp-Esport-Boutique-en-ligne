@@ -9,6 +9,8 @@ import { signout } from './actions/userActions';
 import RegisterScreen from './screens/RegisterScreen';
 import PaymentMethodsScreen from './screens/PaymentMethodsScreen';
 import ShippingMethodScreen from './screens/ShippingMethodScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -24,7 +26,7 @@ function App() {
     <div className="grid-container">
         <header className="row">
         <div className="logo">
-          <Link to="/"><img src="/images/telechargement.png" alt="logo" height="80px"/></Link>
+          <Link to="/"><img src="/images/mtp-logo-white.png" alt="logo" height="80px"/></Link>
         </div>
 
         <div className="nav-center">
@@ -46,10 +48,15 @@ function App() {
           {
             userInfo ?(
               <div className="dropdown user-dropdown">
-              <Link to="#">{userInfo.name} <i className="fas fa-caret-down"></i></Link> 
-                <ul className="dropdown-content">
-                  <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
-                </ul>
+                <div className="dropdown-item">
+                <Link to="#">{userInfo.firstName}  <i className="fas fa-caret-down"></i></Link> 
+                  <ul className="dropdown-content">
+                  <li>
+                      <Link to="/orderhistory">Historique des achats</Link>
+                    </li>
+                    <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
+                  </ul>
+                </div>
               </div>
               ) : (
                 <div className="nav-right">
@@ -59,6 +66,8 @@ function App() {
       </header>
         
       <main> 
+        <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+        <Route path="/placeOrder/:id/paid" component={PlaceOrderScreen}/>
         <Route path="/payment_methods/:id" component={PaymentMethodsScreen}/>
         <Route path="/shipping_methods" component={ShippingMethodScreen}/>
         <Route path="/register" component={RegisterScreen}/>

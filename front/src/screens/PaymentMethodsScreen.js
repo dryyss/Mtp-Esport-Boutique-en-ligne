@@ -1,46 +1,42 @@
 import Axios from 'axios';
-import React, { useEffect, useState } from 'react'
 import { PayPalButton } from 'react-paypal-button-v2';
-
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'
-import { detailsOrder, payOrder } from '../actions/orderAction';
-import CheckoutSteps from '../components/CheckoutSteps'
+import { Link } from 'react-router-dom';
+import { detailsOrder, payOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import TotalPrice from '../components/TotalPrice'
-import { ORDER_PAY_RESET } from '../constants/orderConstants';
-// import Stripe from '../Stripe';
-
+import CheckoutSteps from '../components/CheckoutSteps'
+import TotalPrice from '../components/TotalPrice';
+import { CART_EMPTY } from '../constants/cartConstants';
 
 export default function PaymentMethodsScreen(props) {
-  
-const orderId = props.match.params.id;
-const [sdkReady, setSdkReady] = useState(false);
-const orderDetails = useSelector((state) => state.orderDetails);
-const { order, loading, error } = orderDetails;
+  const orderId = props.match.params.id;
+  const [sdkReady, setSdkReady] = useState(false);
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
 
-const orderPay = useSelector((state) => state.orderPay);
-const {
-  loading: loadingPay,
-  error: errorPay,
-  success: successPay,
-} = orderPay;
-const dispatch = useDispatch();
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,
+    error: errorPay,
+    success: successPay,
+  } = orderPay;
+  const dispatch = useDispatch();
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data } = await Axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https:www.paypal.com/sdk/js?client-id=${data}`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
       };
       document.body.appendChild(script);
     };
-    if (!order || successPay || (order && order._id !== orderId)) {
-      dispatch({ type: ORDER_PAY_RESET });
+    if (!order ||  (order && order._id !== orderId)) {
+
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -48,14 +44,21 @@ const dispatch = useDispatch();
           addPayPalScript();
         } else {
           setSdkReady(true);
+         
         }
       }
     }
   }, [dispatch, order, orderId, sdkReady, successPay]);
-
+if (successPay ){
+    dispatch({type:CART_EMPTY})
+    // dispatch(detailsOrder(orderId))
+    props.history.push(`/placeOrder/${order._id}/paid`)
+}
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
+
   };
+
   return loading ? (
     <LoadingBox></LoadingBox>
   ) : error ? (
@@ -84,38 +87,38 @@ const dispatch = useDispatch();
                         <hr/>
                         <h4>Destinataire :</h4> 
                     </div>
-                        <div className="d_flex">
-                            <div className="block-content">
-                                {order.shippingAddress.address}, {order.shippingAddress.postalCode} {order.shippingAddress.city}, {order.shippingAddress.country}
-                            </div>
-                            <div className="review-block_link">
-                                <span>
-                                    <Link to="/shipping_methods"><i>Changer les informations</i></Link>
-                                </span> 
-                            </div>
+                     <div className="d_flex">
+                        <div className="block-content">
+                            {order.shippingAddress.address}, {order.shippingAddress.postalCode} {order.shippingAddress.city}, {order.shippingAddress.country}
                         </div>
-                    </div>
-                    <div className="review-block">  
-                        <div className="block-label">   
-                            <hr/>
-                            <h4>Livraison</h4>
-                        </div>
-                        <div className="d_flex">
-                            <div className="block-content">
-                                <span><strong>Frais de port fixes</strong>: {order.shippingPrice.toFixed(2)} €</span>
-                            </div>    
+                        <div className="review-block_link">
+                            <span>
+                                <Link to="/shipping_methods"><i>Changer les informations</i></Link>
+                            </span> 
                         </div>
                     </div>
                 </div>
+                <div className="review-block">  
+                    <div className="block-label">   
+                        <hr/>
+                        <h4>Livraison</h4>
+                    </div>
+                    <div className="d_flex">
+                        <div className="block-content">
+                            <span><strong>Frais de port fixes</strong>: {order.shippingPrice.toFixed(2)} €</span>
+                        </div>    
+                    </div>
+                </div>
+            </div>
                 <div className="section-payment-method">
                     <div className="section-header">
                         <div className="section-title">
-                            <h2>Paiement</h2>
+                            <h4>Paiement</h4>
                         </div>
                         <div className="section-text">
                             <p>Toutes les transactions sont sécurisées et cryptées.</p>
                         </div>
-                        <div>
+                        <div className="paypal_li">
                         {!order.isPaid && (
                          <li>
                             {!sdkReady ? (
@@ -173,7 +176,7 @@ const dispatch = useDispatch();
                              </button>
                      </div>  */}
             </div>
-        </div>
+        </div> 
    );
  }
-           
+          

@@ -6,7 +6,8 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
 export default function RegisterScreen(props) {
-  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,7 +25,7 @@ export default function RegisterScreen(props) {
     if (password !== confirmPassword) {
       alert('Veuillez renseigner des mots de passes identique');
     } else {
-      dispatch(register(name, email, password));
+      dispatch(register(firstName,lastName, email, password));
     }
   };
   useEffect(() => {
@@ -41,13 +42,23 @@ export default function RegisterScreen(props) {
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
-          <label htmlFor="name">Nom</label>
+          <label htmlFor="firstName">Prénom</label>
           <input
             type="text"
-            id="name"
+            id="firstName"
+            placeholder="Prénom"
+            required
+            onChange={(e) => setFirstName(e.target.value)}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor="lastName">Nom</label>
+          <input
+            type="text"
+            id="lastName"
             placeholder="Enter name"
             required
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
           ></input>
         </div>
         <div>

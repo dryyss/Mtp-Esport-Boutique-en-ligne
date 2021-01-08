@@ -32,7 +32,7 @@ const dispatch = useDispatch()
         <h1>Panier({cartItems.length})</h1>
           {cartItems.length === 0?<MessageBox>
            <p>Le Panier est vide </p> 
-            <Link   className="button cartButton" to="/"> Commencer vos achats</Link>
+            <Link   className="button payment-button" to="/"> Commencer vos achats</Link>
             </MessageBox> 
             :(
               
@@ -97,7 +97,7 @@ const dispatch = useDispatch()
             <li>
               <button type="button"
                 onClick={checkoutHandler}
-                className="button cartButton" 
+                className="button  payment-button" 
                 disabled={cartItems.length ===0}>
                   Paiement
               </button>

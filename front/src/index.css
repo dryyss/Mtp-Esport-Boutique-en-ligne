@@ -7,7 +7,7 @@ body {
   margin: 0;
   height: 100vh;
   font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -27,11 +27,19 @@ body {
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
 }
+
 header {
   grid-area: header;
-  padding-bottom: 8.5rem;
-  background-color: #000000;
+  padding-top: 1.5rem;
+  padding-bottom: 9.5rem;
+  background: rgb(125, 18, 64);
+  background: linear-gradient(
+    90deg,
+    rgba(125, 18, 64, 1) 0%,
+    rgba(54, 21, 70, 1) 100%
+  );
 }
+
 main {
   grid-area: main;
   padding: 10rem;
@@ -58,7 +66,6 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #b1165a;
   text-decoration: underline;
 }
 ul {
@@ -66,7 +73,13 @@ ul {
   margin: 0;
   list-style-type: none;
 }
+
 li {
+  margin-top: 1rem;
+  list-style-type: none;
+}
+
+.section-header li {
   margin-top: 1rem;
   text-decoration: none;
 }
@@ -83,7 +96,26 @@ button {
   cursor: pointer;
 }
 button:hover {
-  border: 0.1rem #404040 solid;
+  background-color: #0b0b0b;
+  color: #fff;
+}
+
+.btn,
+input[type="submit"] {
+  display: inline-block;
+  position: relative;
+  border: 3px solid #0b0b0b !important;
+  padding: 15px 35px;
+  font-size: 1em;
+  color: #0b0b0b;
+  text-transform: uppercase;
+  z-index: 1;
+  font-weight: 700;
+}
+.btn:hover,
+input[type="submit"]:hover {
+  background-color: #0b0b0b;
+  color: #fff;
 }
 
 button.block {
@@ -93,7 +125,12 @@ button.block {
   cursor: pointer;
   position: relative;
   display: inline-block;
-  background-color: #cd3b37;
+  background: rgb(125, 18, 64);
+  background: linear-gradient(
+    90deg,
+    rgba(125, 18, 64, 1) 0%,
+    rgba(54, 21, 70, 1) 100%
+  );
   background-clip: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -104,15 +141,20 @@ button.block {
   padding: 1.4em 1.7em;
   text-align: center;
   position: relative;
-  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
-    -webkit-box-shadow 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
-    -webkit-box-shadow 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
-    box-shadow 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
-    box-shadow 0.2s ease-in-out, -webkit-box-shadow 0.2s ease-in-out;
 }
+.btn-black {
+  text-align: center;
+  line-height: 1.5em;
+  display: inline-block;
+  position: relative;
+  border: 3px solid #0b0b0b;
+  padding: 15px 35px;
+  font-size: 1em;
+  color: #0b0b0b;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
 /*  */
 /* header */
 header a {
@@ -180,15 +222,22 @@ img.medium {
   max-width: 28rem;
   width: 100%;
 }
+.img_product_height {
+  /* background-color: #f3f3f3; */
+  min-height: 285px;
+  max-height: 100px;
+  overflow: hidden;
+}
 /* Card */
 .card {
-  border: 0.1rem #000000 solid;
+  /* border: 0.1rem #000000 solid; */
   background-color: #fff;
   margin: 1rem;
   height: 45rem;
 }
 .card-body {
   padding: 1rem;
+  border-top: 1px solid #ccc;
 }
 .card-body > * {
   margin-bottom: 0.5rem;
@@ -210,8 +259,9 @@ img.medium {
   display: block !important;
 }
 .success {
-  color: #20a020;
+  color: #110b27;
 }
+
 .danger {
   color: #a02020;
 }
@@ -334,17 +384,22 @@ button {
   display: inline-block;
   position: relative;
 }
+
 .dropdown-content {
   position: absolute;
   display: none;
-  right: 0;
+  right: 0px;
   min-width: 12rem;
-  padding: 1rem;
+  padding: 7rem;
   z-index: 1;
-  background-color: #000;
+  background: #000;
   margin: 0;
   margin-top: 0.4rem;
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
+  top: 3.1rem;
+}
+.dropdown-item {
+  display: inline;
 }
 .dropdown:hover .dropdown-content {
   display: block;
@@ -482,4 +537,12 @@ hr {
 }
 .summary {
   margin-right: 4rem;
+}
+.order-history-wrapper {
+}
+.order-history-shipping {
+  text-align: justify;
+  font-size: 0.1px;
+  border-top: 1px solid #efefef;
+  padding: 20px 15px;
 }

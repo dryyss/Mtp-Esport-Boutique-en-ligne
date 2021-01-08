@@ -2,19 +2,17 @@
 import React, {  useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../actions/cartActions';
-import { createOrder } from '../actions/orderAction';
+import { createOrder } from '../actions/orderActions';
 import CheckoutSteps from '../components/CheckoutSteps'
 import TotalPrice from '../components/TotalPrice';
-import {  ORDER_CREATE_REQUEST,  } from '../constants/orderConstants';
+import {  ORDER_CREATE_REQUEST, ORDER_PAY_RESET,  } from '../constants/orderConstants';
 
 export default function ShippingMethodScreen(props) {
 const userSignin = useSelector(state => state.userSignin);
      const {userInfo} = userSignin; 
      const orderCreate = useSelector((state) => state.orderCreate);
      const {  success, order } = orderCreate;
- if(!userInfo){
-        props.history.push('/signin')
-    }
+ 
     const cart = useSelector(state => state.cart);
     const { shippingAddress} = cart;
     
@@ -40,7 +38,6 @@ const userSignin = useSelector(state => state.userSignin);
             postalCode,
             city,
             country,
-        
         }))
          dispatch(createOrder({ 
              ...cart,
@@ -53,6 +50,7 @@ const userSignin = useSelector(state => state.userSignin);
             if (success) {
               props.history.push(`/payment_methods/${order._id}`);
               dispatch({ type: ORDER_CREATE_REQUEST });
+              dispatch({ type: ORDER_PAY_RESET });
             }
           }, [dispatch, order, props.history, success]);  
     return (
@@ -60,8 +58,10 @@ const userSignin = useSelector(state => state.userSignin);
             <CheckoutSteps shipping_method></CheckoutSteps>
             <div className="d_flex gap-20">
                 <form className="form" onSubmit={submitHandler}>
-                    <div className="contact-info">
-                        <h2>Information de contact</h2>                  
+                    <div className="contact-info">    
+                        <div className="section_header">
+                                <h2 className="section_title">Information de contact </h2>
+                            </div>
                         <div className="logged-in-customer-information__paragraph">
                             <div className="section_content">
                                 <label htmlFor="email">E-mail *</label>
@@ -69,8 +69,8 @@ const userSignin = useSelector(state => state.userSignin);
                                     className="field_input"
                                     type="text"
                                     id="email"
-                                    placeholder= {userInfo.email}
-                                    value={email}
+                                    placeholder = "{userInfo.email}"
+                                    value = {email}
                                     onChange={(e) => setEmail(e.target.value)} 
                                     required  />
                             </div>
@@ -80,27 +80,27 @@ const userSignin = useSelector(state => state.userSignin);
                                 <h2 className="section_title">Adresse de livraison </h2>
                             </div>
                             <div className="section_content_fullName">
-                                <div className="section_content form-fullName">
-                                    <label htmlFor="firstName">Prénom *</label>
-                                    <input
-                                        className="field_input_fullname"
-                                        type="text"
-                                        id="firstName"
-                                        placeholder="Prénom"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)} 
-                                        required  />                                
-                                </div>
+                              
                                 <div className="section_content form-fullName">
                                     <label htmlFor="lastName">Nom *</label>
                                         <input  
                                             className="field_input_fullname"
                                             type="text"
                                             id="lastName"
-                                            placeholder="Nom"
+                                            placeholder="{userInfo.lastName}"
                                             value={lastName}
                                             onChange={(e) => setLastName(e.target.value)} 
                                             required  />                                       
+                                </div>  <div className="section_content form-fullName">
+                                    <label htmlFor="firstName">Prénom *</label>
+                                    <input
+                                        className="field_input_fullname"
+                                        type="text"
+                                        id="firstName"
+                                        placeholder="prenom"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)} 
+                                        required  />                                
                                 </div>
                             </div>                            
                             <div className="section_content">
@@ -151,6 +151,7 @@ const userSignin = useSelector(state => state.userSignin);
                                         value={country}
                                         onChange={(e) => setCountry(e.target.value)} 
                                         required >
+                                            <option value="Option">Pays/Région</option>
                                             <option data-code="FR" value="France">France</option>
                                             <option data-code="GB" value="United Kingdom">United Kingdom</option>
                                             <option data-code="DE" value="Germany">Germany</option>

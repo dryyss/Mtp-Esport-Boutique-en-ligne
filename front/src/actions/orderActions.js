@@ -68,7 +68,7 @@ export const payOrder = (order, paymentResult) => async (
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = Axios.put(`/api/payment_methods/${order._id}/pay`, paymentResult, {
+    const { data } = Axios.put(`/api/payment_methods/${order._id}/paid`, paymentResult, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
@@ -86,7 +86,7 @@ export const listOrderMine = () => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get('/api/orders/mine', {
+    const { data } = await Axios.get('/api/placeOrder/mine', {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
