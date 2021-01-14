@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 /fontawesome-free-5.15.1-web/
+/uploads/*.jpg 
+/uploads/*.png
 # testing
 /coverage
 

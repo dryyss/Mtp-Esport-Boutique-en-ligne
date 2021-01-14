@@ -39,15 +39,6 @@ export default function OrderConfirmationScreen(props) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(detailsOrder(orderId));
     }
-    //  else {
-    //   if (!order.isPaid) {
-    //     if (!window.paypal) {
-    //       addPayPalScript();
-    //     } else {
-    //       setSdkReady(true);
-    //     }
-    //   }
-    // }
   }, [dispatch, order, orderId, sdkReady, successPay]);
 
 

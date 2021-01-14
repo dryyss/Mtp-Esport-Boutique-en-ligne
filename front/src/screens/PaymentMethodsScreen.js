@@ -3,7 +3,7 @@ import _get from 'lodash/get';
 import  { PayPalButton } from 'react-paypal-button-v2';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link ,useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import { detailsOrder, payOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -50,7 +50,6 @@ export default function PaymentMethodsScreen(props) {
   }, [dispatch, order, orderId, sdkReady, successPay]);
     if (successPay){
         dispatch({type:CART_EMPTY})
-        // dispatch(detailsOrder(orderId))
         props.history.push(`/orderConfirmation/${order._id}/paid`)
     }
   const successPaymentHandler = (paymentResult) => {

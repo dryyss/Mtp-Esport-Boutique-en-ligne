@@ -18,7 +18,7 @@ export default function ProfileScreen() {
   const { userInfo } = userSignin;
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  // const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   // const {
   //   success: successUpdate,
   //   error: errorUpdate,
