@@ -1,8 +1,9 @@
 import Axios from 'axios';
-import { PayPalButton } from 'react-paypal-button-v2';
+import _get from 'lodash/get';
+import  { PayPalButton } from 'react-paypal-button-v2';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link ,useHistory} from 'react-router-dom';
 import { detailsOrder, payOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -15,7 +16,7 @@ export default function PaymentMethodsScreen(props) {
   const [sdkReady, setSdkReady] = useState(false);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-
+  const history = useHistory();
   const orderPay = useSelector((state) => state.orderPay);
   const {
     loading: loadingPay,
@@ -36,7 +37,6 @@ export default function PaymentMethodsScreen(props) {
       document.body.appendChild(script);
     };
     if (!order ||  (order && order._id !== orderId)) {
-
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -44,19 +44,17 @@ export default function PaymentMethodsScreen(props) {
           addPayPalScript();
         } else {
           setSdkReady(true);
-         
         }
       }
     }
   }, [dispatch, order, orderId, sdkReady, successPay]);
-if (successPay ){
-    dispatch({type:CART_EMPTY})
-    // dispatch(detailsOrder(orderId))
-    props.history.push(`/placeOrder/${order._id}/paid`)
-}
+    if (successPay){
+        dispatch({type:CART_EMPTY})
+        // dispatch(detailsOrder(orderId))
+        props.history.push(`/orderConfirmation/${order._id}/paid`)
+    }
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
-
   };
 
   return loading ? (
@@ -75,10 +73,10 @@ if (successPay ){
                     </div>
                     <div className="d_flex">
                         <div className="block-content">
-                            {order.shippingAddress.email}
+                            {_get(order,'shippingAddress.email',null) }
                         </div>
                         <div className="review-block_link">
-                            <Link to="/shipping_methods"><i>Changer les informations</i></Link>
+                            <a href style={{ cursor: 'pointer' }} onClick={() => history.goBack()}><i>Changer les informations</i></a>
                         </div>
                     </div>
                 </div>
@@ -89,11 +87,11 @@ if (successPay ){
                     </div>
                      <div className="d_flex">
                         <div className="block-content">
-                            {order.shippingAddress.address}, {order.shippingAddress.postalCode} {order.shippingAddress.city}, {order.shippingAddress.country}
+                            {_get(order,'shippingAddress.address',null) } ,{_get(order,'shippingAddress.postalCode',null) }, {_get(order,'shippingAddress.city',null) },{_get(order,'shippingAddress.country',null) }
                         </div>
                         <div className="review-block_link">
                             <span>
-                                <Link to="/shipping_methods"><i>Changer les informations</i></Link>
+                                <a href style={{ cursor: 'pointer' }} onClick={() => history.goBack()}><i>Changer les informations</i></a>
                             </span> 
                         </div>
                     </div>
@@ -105,7 +103,7 @@ if (successPay ){
                     </div>
                     <div className="d_flex">
                         <div className="block-content">
-                            <span><strong>Frais de port fixes</strong>: {order.shippingPrice.toFixed(2)} €</span>
+                            <span><strong>Frais de port fixes</strong>:{_get(order,'shippingPrice',0.0).toFixed(2) }  €</span>
                         </div>    
                     </div>
                 </div>
@@ -145,7 +143,7 @@ if (successPay ){
             <div className="sidebar">
                 <ul>
                     <div className="product-summary">
-                        { order.orderItems.map((item) => (
+                        { order.orderItems && order.orderItems.map((item) => (
                             <li key={item.product}>
                                 <div className="row summary">
                                     <div>

@@ -17,27 +17,27 @@ export const productListReducer = (
 ) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case PRODUCT_LIST_SUCCESS:
-      return { loading: false, products: action.payload };
+      return {...state,  loading: false, products: action.payload };
     case PRODUCT_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
 };
 
 export const productDetailsReducer = (
-  state = { product: {}, loading: true },
+  state = { product: {}, loading: false },
   action
 ) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
-      return { loading: true };
+      return { ...state,  loading: true };
     case PRODUCT_DETAILS_SUCCESS:
-      return { loading: false, product: action.payload };
+      return {...state,  loading: false, product: action.payload };
     case PRODUCT_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
+      return {...state,  loading: false, error: action.payload };
     default:
       return state;
   }
@@ -45,13 +45,12 @@ export const productDetailsReducer = (
 export const productCreateReducer = (state={}, action) => {
 switch (action.type) {
   case PRODUCT_CREATE_REQUEST:
-    return { loading: true };
+    return {...state,  loading: true };
   case PRODUCT_CREATE_SUCCESS:
-    return { loading: false, success:true,  product: action.payload };
+    return { ...state, loading: false, success:true,  product: action.payload };
   case PRODUCT_CREATE_FAIL:
-    return { loading: false, error: action.payload };
+    return { ...state, loading: false, error: action.payload };
   case PRODUCT_CREATE_RESET: 
-     return {};
   default:
     return state;
 }

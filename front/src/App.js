@@ -1,16 +1,21 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import  {Route, BrowserRouter, Link } from 'react-router-dom';
+import { signout } from './actions/userActions';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
-import  {Route, BrowserRouter, Link } from 'react-router-dom'
 import CartScreen from './screens/CartScreen';
-import { useDispatch, useSelector } from 'react-redux';
 import SigninScreen from './screens/SigninScreen';
-import { signout } from './actions/userActions';
 import RegisterScreen from './screens/RegisterScreen';
 import PaymentMethodsScreen from './screens/PaymentMethodsScreen';
 import ShippingMethodScreen from './screens/ShippingMethodScreen';
-import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderConfirmationScreen from './screens/OrderConfirmationScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
+import ProductAdminListScreen from './screens/ProductAdminListScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -52,7 +57,10 @@ function App() {
                 <Link to="#">{userInfo.firstName}  <i className="fas fa-caret-down"></i></Link> 
                   <ul className="dropdown-content">
                   <li>
-                      <Link to="/orderhistory">Historique des achats</Link>
+                      <Link to="/orderHistory">Historique des achats</Link>
+                    </li>
+                    <li>
+                      <Link to="/profile">Mon Compte</Link>
                     </li>
                     <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
                   </ul>
@@ -60,21 +68,55 @@ function App() {
               </div>
               ) : (
                 <div className="nav-right">
-                <Link to ="/register">Inscription</Link> <Link to ="/signin">Connexion</Link></div>
+                  <Link to ="/register">Inscription</Link>
+                   <Link to ="/signin">Connexion</Link>
+                </div>
+              )}
+              {
+              userInfo && userInfo.isAdmin && (
+                <div className="dropdown">
+                  <Link to="#admin">
+                    Admin <i className="fa fa-caret-down"></i>
+                  </Link>
+                  <ul className="dropdown-content">
+                    <li>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                      <Link to="/productlist">Products</Link>
+                    </li>
+                    <li>
+                      <Link to="/orderlist">Orders</Link>
+                    </li>
+                    <li>
+                      <Link to="/userlist">Users</Link>
+                    </li>
+                  </ul>
+                </div>
               )}
         </div>
       </header>
         
       <main> 
-        <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
-        <Route path="/placeOrder/:id/paid" component={PlaceOrderScreen}/>
+        <Route path="/placeOrder" component={PlaceOrderScreen}/> 
+        <Route path="/orderHistory" component={OrderHistoryScreen}/>
+        <Route path="/orderConfirmation/:id/paid" component={OrderConfirmationScreen}/>
         <Route path="/payment_methods/:id" component={PaymentMethodsScreen}/>
         <Route path="/shipping_methods" component={ShippingMethodScreen}/>
         <Route path="/register" component={RegisterScreen}/>
         <Route path="/signin" component={SigninScreen}/>
         <Route path="/cart/:id?"component={CartScreen}/>
-        <Route path="/product/:id" component={ProductScreen}/>
+        <Route path="/product/:id" component={ProductScreen} exact></Route>
+
         <Route path="/" component={HomeScreen} exact/>
+        <PrivateRoute
+            path="/profile"
+            component={ProfileScreen}
+          ></PrivateRoute>
+           <AdminRoute
+            path="/productlist"
+            component={ProductAdminListScreen}
+          ></AdminRoute>
         
       </main>
       <footer className="row center">

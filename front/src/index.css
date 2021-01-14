@@ -230,7 +230,7 @@ img.medium {
 }
 /* Black Block Right */
 .black-blocs {
-  background: #021a33 !important;
+  background: #6f1e51 !important;
   color: #ecf0f1 !important;
   padding: 5px 35px;
   position: relative;
@@ -239,7 +239,7 @@ img.medium {
 }
 .shape-top,
 .shape-bottom {
-  background: #021a33 !important;
+  background: #6f1e51 !important;
   position: absolute;
 }
 .shape-top {
@@ -261,7 +261,7 @@ img.medium {
   display: block;
   position: absolute;
   width: 50px;
-  background: #021a33;
+  background: #6f1e51;
 }
 
 .shape-top::after {
@@ -594,10 +594,69 @@ hr {
 .summary {
   margin-right: 4rem;
 }
-
+/* order history */
+.order-history-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 150px;
+  background: #efefef;
+}
+.order-history-information {
+  width: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12px;
+}
+.order-history-item {
+  margin-bottom: 20px;
+  border: 1px solid #efefef;
+}
+.order-details-btn,
+.order-track-number-btn {
+  min-width: 232px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.6px;
+  text-align: start;
+  text-transform: uppercase;
+  padding: 12px;
+  background-color: #000;
+  border: 1px solid #000;
+  color: #fff;
+}
 .order-history-shipping {
   text-align: justify;
-  font-size: 0.1px;
+  font-size: 1.1rem;
   border-top: 1px solid #efefef;
   padding: 20px 15px;
+}
+.order-history-shipping > div,
+.order-history-shipping > li {
+  text-align: start;
+}
+
+.order-shipped-to-wrapper {
+  max-width: 60%;
+  word-break: normal;
+}
+.order-history-total,
+.order-shipped-to-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 12px;
+}
+.order-history-shipping:after {
+  content: "";
+  width: 100%;
+  overflow: hidden;
+  height: 0.1px;
+  display: inline-block;
+}
+.order-number {
+  display: inline;
 }

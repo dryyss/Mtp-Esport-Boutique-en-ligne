@@ -25,11 +25,11 @@ export default function ProductScreen(props) {
         if (refs0.current) {
             gsap.fromTo([refs0.current], {
                 opacity: 0,
-                y: 50
+                x: -50
             },
             {
                 opacity: 1,
-                y: 0,
+                x: 0,
                 duration: 0.5
             })
 
@@ -42,7 +42,7 @@ export default function ProductScreen(props) {
                 opacity:1,
                 y: 0,
                 duration: 0.5,
-                delay: 0.8,
+                delay: 0.0,
                 stagger: 0.1,
             })
         }

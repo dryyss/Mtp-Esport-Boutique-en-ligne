@@ -3,68 +3,91 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listOrderMine } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import _has from 'lodash/has';
+import _get from 'lodash/get';
+import { Link } from 'react-router-dom';
+
 
 export default function OrderHistoryScreen(props) {
   const orderMineList = useSelector((state) => state.orderMineList);
-  const { loading, error, orders } = orderMineList;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { loading, error, orders} = orderMineList;
+
   const dispatch = useDispatch();
+  const redirect = props.location.search
+  ? props.location.search.split('=')[1]
+  : '/orderHistory';
+
   useEffect(() => {
     dispatch(listOrderMine());
   }, [dispatch]);
+
   return (
-    <div>
-      <div class="js-orders-response order-history-wrapper" data-pagesize="6" data-pagestart="0">
-          <h1 class="order-title">
-            Historique des commandes
-          </h1>
-          <div class="all-orders-total is-mobile">
-            {/* 1 commande */}
-            {/* Order lentgh for user */}
-          </div>
-          <form action="https://fr.boohoo.com/order-details" method="post" id="dwfrm_orders">
-            <div class="search-result-options order-history-pagination">
-            </div>
-            <ul class="search-result-items">
-              <li class="order-history-item">
-                <div class="order-history-header">
-                  <div class="order-history-information">
-                    <div class="order-number">
-                      <span class="label">Numéro de commande&nbsp;:</span>
-                      <span class="value">EU109381354</span>
-                    </div>
-                    <div class="order-date">
-                      <span class="label">Date de la commande&nbsp;:</span>
-                        <span class="value">samedi, 05 décembre, 2020</span>
-                    </div>
-                    <div class="order-status">
-                      <span class="label">Statut de la commande&nbsp;:</span>
-                      <span class="value order-dispatched">Expédié</span>
-                      <span class="notracking-text">
-                      <span class="is-desktop notracking-text-hiphen"> - </span>
-                        Le suivi n’est plus disponible
-                      </span>
-                    </div>
-                  </div>
-                  <button type="submit" class="order-details-btn" value="Détails de la commande" name="dwfrm_orders_orderlist_i0_show">
-                  Voir commande
-                  </button>
-                </div>  
-                <div class="order-history-shipping">
-                  <div class="order-shipped-to-wrapper">
-                    <div class="order-shipped-to">Livrée à&nbsp;:</div>
-                    <div class="order-shipped-to-name">
-                      <span class="value">Mr ANDRYS MAGAR</span>
-                    </div>
-                  </div>
-                  <div class="order-history-total">
-                    <div class="order-total-price">Total de la commande:</div>
-                    <span class="value">  € 283.99</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </form>
+      !_has(userSignin, "userInfo.firstName") ? (
+       <div><div>Connectez-vous pour visualiser l'historique de vos commandes </div> 
+       <Link to={`/signin?redirect=${redirect}`}>Se Connecter</Link></div> 
+      ) : (
+        <div>
+          <div className="js-orders-response order-history-wrapper" data-pagesize="6" data-pagestart="0">
+            <h1 className="order-title">
+              Historique des commandes
+            </h1> {loading ? (
+            <LoadingBox></LoadingBox>
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <>
+              {orders.map((order) => (
+                <tr key={order._id}>  
+                  <ul className="search-result-items">
+                    <li className="order-history-item">
+                      <div className="order-history-header">
+                        <div className="order-history-information">
+                          <div className="order-number">
+                            <span className="label">Numéro de commande : </span>
+                            <span className="value">{order._id}</span>
+                          </div>
+                          <div className="order-date">
+                            <span className="label">Date de la commande : </span>
+                            <span className="value">{_get(order,'PaidAt','').substring(0, 10) }</span>
+                          </div>
+                          <div className="order-status">
+                            <span className="label">Statut de la commande : </span>
+                            <span className="value order-dispatched">
+                              {order.isDelivered
+                                  ? order.deliveredAt.substring(0, 10)
+                                : 'Non Livré'
+                              }</span>
+                          </div>
+                        </div>
+                        <button type="button"
+                          className="small"
+                          onClick={() => {
+                            props.history.push(`/placeOrder/${order._id}`);
+                          }}>
+                            Voir commande
+                        </button>
+                      </div>  
+                      <div className="order-history-shipping">
+                        <div className="order-shipped-to-wrapper">
+                          <div className="order-shipped-to">Livrée à : </div>
+                            <div className="order-shipped-to-name">
+                              <span className="value">{order.shippingAddress.firstName} {order.shippingAddress.lastName}</span>
+                            </div>
+                          </div>
+                          <div className="order-history-total">
+                            <div className="order-total-price">Total de la commande:</div>
+                              <span className="value">  {order.totalPrice} €</span>
+                            </div>
+                          </div>
+                    </li>
+                  </ul>
+                </tr>
+              ))}
+            </>
+          )}
         </div>
-    </div>
+      </div>
+    )
   );
 }

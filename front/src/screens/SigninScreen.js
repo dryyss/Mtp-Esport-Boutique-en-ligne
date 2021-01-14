@@ -21,9 +21,9 @@ export default function SigninScreen(props) {
     e.preventDefault();
     dispatch(signin(email, password));
   };
-  useEffect(() => {
-    if (userInfo) {
-      props.history.push(redirect);
+    useEffect(() => {
+      if (userInfo) {
+        props.history.push(redirect);
     }
   }, [props.history, redirect, userInfo]);
   return (
