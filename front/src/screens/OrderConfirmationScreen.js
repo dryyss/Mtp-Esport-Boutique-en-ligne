@@ -35,9 +35,12 @@ export default function OrderConfirmationScreen(props) {
       };
       document.body.appendChild(script);
     };
-    if (!order || successPay || (order && order._id !== orderId)) {
-      dispatch({ type: ORDER_PAY_RESET });
+    if (!order || (order && order._id !== orderId)) {
+      
       dispatch(detailsOrder(orderId));
+    }
+    if (successPay){
+      dispatch({ type: ORDER_PAY_RESET });
     }
   }, [dispatch, order, orderId, sdkReady, successPay]);
 
@@ -59,11 +62,12 @@ export default function OrderConfirmationScreen(props) {
               <div className="card card-body">
                 <h2>Shipping</h2>
                 <p>
-                  <strong>Name:</strong>{_get(order,'order.shippingAddress.firstName',null) }  {_get(order,'order.shippingAddress.lastName',null) } <br />
-                  <strong>Address: </strong>{_get(order,'order.shippingAddress.address',null) } ,
-                  {_get(order,'order.shippingAddress.city','') },
-                  {_get(order,'order.shippingAddress.postalcode','') },
-                  {_get(order,'order.shippingAddress.country','') }
+                  <strong>Name: </strong> {_get(order,'shippingAddress.firstName',null) }  {_get(order,'shippingAddress.lastName',null) } <br />
+                  <strong>Address: </strong>
+                  {_get(order,'shippingAddress.address',null) } &nbsp; 
+                  {_get(order,'shippingAddress.postalCode','') } &nbsp;
+                  {_get(order,'shippingAddress.city','') }  &nbsp;
+                  {_get(order,'shippingAddress.country','') }
                 </p>
                 {order.isDelivered ? (
                   <MessageBox variant="success">
@@ -129,19 +133,19 @@ export default function OrderConfirmationScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>${_get(order,'order.itemsPrice',0.0).toFixed(2) }</div>
+                  <div>${_get(order,'itemsPrice',0.0).toFixed(2) }</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>${_get(order,'order.shippingPrice',0.0).toFixed(2) }</div>
+                  <div>${_get(order,'shippingPrice',0.0).toFixed(2) }</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Tax</div>
-                  <div>${_get(order,'order.taxPrice',0.0).toFixed(2) }</div>
+                  <div>${_get(order,'taxPrice',0.0).toFixed(2) }</div>
                 </div>
               </li>
               <li>
@@ -150,7 +154,7 @@ export default function OrderConfirmationScreen(props) {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>${_get(order,'order.totalPrice',0.0).toFixed(2) }</strong>
+                    <strong>${_get(order,'totalPrice',0.0).toFixed(2) }</strong>
                   </div>
                 </div>
               </li>

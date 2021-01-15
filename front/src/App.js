@@ -18,6 +18,7 @@ import AdminRoute from './components/AdminRoute';
 import ProductAdminListScreen from './screens/ProductAdminListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderAdminListScreen from './screens/OrderAdminListScreen';
+import UserAdminListScreen from './screens/UserAdminListScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -100,7 +101,7 @@ function App() {
       </header>
         
       <main> 
-        <Route path="/placeOrder" component={PlaceOrderScreen}/> 
+        <Route path="/placeOrder/:id" component={PlaceOrderScreen}/> 
         <Route path="/orderHistory" component={OrderHistoryScreen}/>
         <Route path="/orderConfirmation/:id/paid" component={OrderConfirmationScreen}/>
         <Route path="/payment_methods/:id" component={PaymentMethodsScreen}/>
@@ -127,7 +128,11 @@ function App() {
             path="/orderlist"
             component={OrderAdminListScreen}
           ></AdminRoute>
-        
+          <AdminRoute 
+            path="/userlist" 
+            component={UserAdminListScreen}
+          ></AdminRoute>
+
       </main>
       <footer className="row center">
        Copyright © 2020 Montpellier Talent Players - <a href="/politique"> &nbsp;Politique de confidentialité   </a> &nbsp;- <a href="/mention"> &nbsp;Mentions légales</a>
