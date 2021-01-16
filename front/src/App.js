@@ -19,6 +19,7 @@ import ProductAdminListScreen from './screens/ProductAdminListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderAdminListScreen from './screens/OrderAdminListScreen';
 import UserAdminListScreen from './screens/UserAdminListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -131,6 +132,10 @@ function App() {
           <AdminRoute 
             path="/userlist" 
             component={UserAdminListScreen}
+          ></AdminRoute>
+          <AdminRoute
+            path="/user/:id/edit"
+            component={UserEditScreen}
           ></AdminRoute>
 
       </main>

@@ -45,17 +45,17 @@ export default function OrderHistoryScreen(props) {
                         <div className="order-history-information">
                           <div className="order-number">
                             <span className="label">Numéro de commande : </span>
-                            <span className="value">{order._id}</span>
+                            <span className="value"><strong>{order._id}</strong></span>
                           </div>
                           <div className="order-date">
                             <span className="label">Date de la commande : </span>
-                            <span className="value">{_get(order,'PaidAt','').substring(0, 10) }</span>
+                            <span className="value"><strong>{_get(order,'PaidAt','').substring(0, 10) }</strong></span>
                           </div>
                           <div className="order-status">
                             <span className="label">Statut de la commande : </span>
                             <span className="value order-dispatched">
                               {order.isDelivered
-                                  ? order.deliveredAt.substring(0, 10)
+                                  ? <strong> Envoyer le  {order.deliveredAt.substring(0, 10)}</strong>
                                 : 'Non Livré'
                               }</span>
                           </div>

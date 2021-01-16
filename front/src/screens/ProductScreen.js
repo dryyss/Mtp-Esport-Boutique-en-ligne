@@ -77,7 +77,7 @@ export default function ProductScreen(props) {
                                 <div>
                                     <h1 ref={refs1}>{product.name}</h1>
                                     <div ref={refs2} className="price">
-                                        {product.price} €
+                                        {product.price.toFixed(2)} €
                                     </div>
                                     <div ref={refs3} className="description">
                                         <div>{product.description}</div>    

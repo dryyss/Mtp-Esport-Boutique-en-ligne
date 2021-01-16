@@ -40,7 +40,7 @@ import {
     }
   };
   
-  export const orderDetailsReducer = (state = {order:{}, loading: false}, action) => {
+  export const orderDetailsReducer = (state = {order:{}, loading: true}, action) => {
     switch (action.type) {
       case ORDER_DETAILS_REQUEST:
         return {...state, loading: true };
