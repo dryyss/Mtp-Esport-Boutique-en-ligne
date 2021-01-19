@@ -83,9 +83,7 @@ export default function ProductScreen(props) {
                                         <div>{product.description}</div>    
                                     </div>
                                     <div ref={refs4}> 
-                                        <Note note={product.note}
-                                                numReviews={product.numReviews}
-                                        />
+                                        <Note note={product.note} numReviews={product.numReviews} />
                                     </div>
                                 <div ref={refs5} className="actions-item">
                                 { product.countInStock > 0 ? ( 

@@ -11,7 +11,7 @@ export default function ShippingMethodScreen(props) {
 const userSignin = useSelector(state => state.userSignin);
      const {userInfo} = userSignin; 
      const orderCreate = useSelector((state) => state.orderCreate);
-     const {  success, order } = orderCreate;
+     const { success, order } = orderCreate;
  
     const cart = useSelector(state => state.cart);
     const { shippingAddress} = cart;
@@ -39,20 +39,20 @@ const userSignin = useSelector(state => state.userSignin);
             city,
             country,
         }))
-         dispatch(createOrder({ 
-             ...cart,
-              orderItems: cart.cartItems
-        }
-       ))
+        dispatch(createOrder({ 
+            ...cart,
+            orderItems: cart.cartItems
+        }))
+        dispatch({ type: ORDER_CREATE_REQUEST });
+        dispatch({ type: ORDER_PAY_RESET });
     };
 
     useEffect(() => {
-            if (success) {
-              props.history.push(`/payment_methods/${order._id}`);
-              dispatch({ type: ORDER_CREATE_REQUEST });
-              dispatch({ type: ORDER_PAY_RESET });
-            }
-          }, [dispatch, order, props.history, success]);  
+        if (success) {
+            props.history.push(`/payment_methods/${order._id}`);
+        }
+    }, [dispatch, order, props.history, success]);
+
     return (
         <div>
             <CheckoutSteps shipping_method></CheckoutSteps>
@@ -205,7 +205,7 @@ const userSignin = useSelector(state => state.userSignin);
                     </div>
                 </div>
                     <div className="step_footer">
-                        <button className="button  payment-button" type="submit">
+                        <button className="button payment-button" type="submit">
                             Livraison
                         </button>
                             {/* { loading && <LoadingBox></LoadingBox>}

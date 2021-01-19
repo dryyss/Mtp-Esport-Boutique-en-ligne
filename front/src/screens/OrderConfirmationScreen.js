@@ -28,7 +28,7 @@ export default function OrderConfirmationScreen(props) {
       const { data } = await Axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}&currency=EUR`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
@@ -36,7 +36,7 @@ export default function OrderConfirmationScreen(props) {
       document.body.appendChild(script);
     };
     if (!order || (order && order._id !== orderId)) {
-      
+      dispatch({ type: ORDER_PAY_RESET });
       dispatch(detailsOrder(orderId));
     }
     if (successPay){

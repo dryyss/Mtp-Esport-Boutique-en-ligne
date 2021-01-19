@@ -2,9 +2,7 @@
 
 
 
-import React, { useEffect, useState  } from 'react';
-import _has from 'lodash/has';
-import Axios from 'axios';
+import React, { useEffect } from 'react';
 import _get from 'lodash/get';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -22,14 +20,9 @@ export default function PlaceOrderScreen(props) {
         const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
   const orderId = props.match.params.id;
-  const [sdkReady, setSdkReady] = useState(false);
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-
-  const orderPay = useSelector((state) => state.orderPay);
-  const {
-    success: successPay,
-  } = orderPay;
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const {
     loading: loadingDeliver,
@@ -38,20 +31,8 @@ export default function PlaceOrderScreen(props) {
   } = orderDeliver;
   const dispatch = useDispatch();
   useEffect(() => {
-    const addPayPalScript = async () => {
-      const { data } = await Axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
     if (
       !order ||
-      successPay ||
       successDeliver ||
       (order && order._id !== orderId)
     ) {
@@ -59,7 +40,7 @@ export default function PlaceOrderScreen(props) {
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(detailsOrder(orderId));
     }
-  }, [dispatch, order, orderId, sdkReady, successDeliver]);
+  }, [dispatch, order, orderId,  successDeliver]);
   
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
@@ -87,10 +68,10 @@ export default function PlaceOrderScreen(props) {
                 </p>
                 {order.isDelivered ? (
                   <MessageBox variant="success">
-                    Delivered at {order.deliveredAt}
+                    <strong>  Votre commande a été expedié le :</strong> {order.deliveredAt}
                   </MessageBox>
                 ) : (
-                  <MessageBox variant="danger">Not Delivered</MessageBox>
+                  <MessageBox variant="danger"> <strong> Votre commande est en cours de traitement</strong></MessageBox>
                 )}
               </div>
             </li>
@@ -102,10 +83,10 @@ export default function PlaceOrderScreen(props) {
                 </p>
                 {order.isPaid ? (
                   <MessageBox variant="success">
-                    Paid at {order.PaidAt}
+                  <strong> Payé le :</strong> {order.PaidAt}
                   </MessageBox>
                 ) : (
-                  <MessageBox variant="danger">Not Paid</MessageBox>
+                  <MessageBox variant="danger"> <strong> Commande Non Payé</strong></MessageBox>
                 )}
               </div>
             </li>

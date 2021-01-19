@@ -5,6 +5,7 @@ import MessageBox from '../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
 import {listProducts} from '../actions/productActions';
 import { useLocation } from 'react-router-dom';
+import { CATEGORY } from '../constants/routes';
 
 export default function HomeScreen() {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ export default function HomeScreen() {
   }, [dispatch]);
 
   useEffect(() => {
-    const queryURI = new URLSearchParams(location.search).get('query');
+    const queryURI = new URLSearchParams(location.search).get(CATEGORY);
     const productFiltered = queryURI
       ? products.map((product) => product.category === queryURI && <Product key={product._id} product={product} />).filter(o => o)
       : products.map((product) => <Product key={product._id} product={product} />);

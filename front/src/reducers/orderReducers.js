@@ -26,15 +26,16 @@ import {
     ORDER_DELIVER_RESET,
   } from '../constants/orderConstants';
   
-  export const orderCreateReducer = (state = {order:{}, loading: false}, action) => {
+  export const orderCreateReducer = (state = {order:{}, loading: false, success: false}, action) => {
     switch (action.type) {
       case ORDER_CREATE_REQUEST:
-        return {...state, loading: true };
+        return {...state, loading: true, success: false };
       case ORDER_CREATE_SUCCESS:
         return {...state, loading: false, success: true, order: action.payload };
       case ORDER_CREATE_FAIL:
-        return {...state, loading: false, error: action.payload };
+        return {...state, loading: false, error: action.payload ,success: false};
       case ORDER_CREATE_RESET:
+        return {...state, success: false};
       default:
         return state;
     }

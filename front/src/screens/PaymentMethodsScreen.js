@@ -10,6 +10,21 @@ import MessageBox from '../components/MessageBox';
 import CheckoutSteps from '../components/CheckoutSteps'
 import TotalPrice from '../components/TotalPrice';
 import { CART_EMPTY } from '../constants/cartConstants';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
+
+const GoBack = ({ click, text }) => (
+  <div
+    className="review-block_link"
+    onClick={click}
+    style={{
+      cursor: 'pointer',
+      fontStyle: 'italic',
+      color: '#197dc1'
+    }}
+  >
+    {text}
+  </div>
+);
 
 export default function PaymentMethodsScreen(props) {
   const orderId = props.match.params.id;
@@ -29,7 +44,7 @@ export default function PaymentMethodsScreen(props) {
       const { data } = await Axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}&currency=EUR`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
@@ -52,6 +67,10 @@ export default function PaymentMethodsScreen(props) {
         dispatch({type:CART_EMPTY})
         props.history.push(`/orderConfirmation/${order._id}/paid`)
     }
+  const HandleGoBack = () => {    
+    dispatch({type: ORDER_CREATE_RESET})
+    history.goBack()
+    };
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
   };
@@ -74,9 +93,7 @@ export default function PaymentMethodsScreen(props) {
                         <div className="block-content">
                             {_get(order,'shippingAddress.email',null) }
                         </div>
-                        <div className="review-block_link">
-                            <a href style={{ cursor: 'pointer' }} onClick={() => history.goBack()}><i>Changer les informations</i></a>
-                        </div>
+                        <GoBack click={HandleGoBack} text="Changer les informations" />
                     </div>
                 </div>
                 <div className="review-block">  
@@ -88,11 +105,7 @@ export default function PaymentMethodsScreen(props) {
                         <div className="block-content">
                             {_get(order,'shippingAddress.address',null) } ,{_get(order,'shippingAddress.postalCode',null) }, {_get(order,'shippingAddress.city',null) },{_get(order,'shippingAddress.country',null) }
                         </div>
-                        <div className="review-block_link">
-                            <span>
-                                <a href style={{ cursor: 'pointer' }} onClick={() => history.goBack()}><i>Changer les informations</i></a>
-                            </span> 
-                        </div>
+                        <GoBack click={HandleGoBack} text="Changer les informations" />
                     </div>
                 </div>
                 <div className="review-block">  
@@ -128,9 +141,10 @@ export default function PaymentMethodsScreen(props) {
                                 {loadingPay && <LoadingBox></LoadingBox>}
 
                                 <PayPalButton
-                                    amount={order.totalPrice}
-                                    onSuccess={successPaymentHandler}
-                                ></PayPalButton>
+                                  amount={order.totalPrice}
+                                  onSuccess={successPaymentHandler}
+                                  currency="EUR"
+                                />
                                 </>
                             )}
                         </li>

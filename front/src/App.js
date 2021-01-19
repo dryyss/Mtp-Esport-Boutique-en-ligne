@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import  {Route, BrowserRouter, Link } from 'react-router-dom';
 import { signout } from './actions/userActions';
@@ -20,8 +20,14 @@ import ProductEditScreen from './screens/ProductEditScreen';
 import OrderAdminListScreen from './screens/OrderAdminListScreen';
 import UserAdminListScreen from './screens/UserAdminListScreen';
 import UserEditScreen from './screens/UserEditScreen';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
+import { CATEGORY, SEARCH_QUERY } from './constants/routes';
+import { gsap } from 'gsap';
 
 function App() {
+  const refMenu = useRef(null);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const userSignin = useSelector(state => state.userSignin);
@@ -30,35 +36,130 @@ function App() {
   const signoutHandler =() =>{
     dispatch(signout());    
   }
+  const toggleMenu = () => {
+    if (!menuIsOpen) {
+      gsap
+        .to([refMenu.current],{
+          y: '5px',
+          duration: 0.5
+        })
+    } else {
+      gsap
+        .to([refMenu.current], {
+          y: '-200%',
+          duration: 0.5
+        })
+    }
+    setMenuIsOpen(!menuIsOpen);
+  }
+
   return (
   <BrowserRouter>
     <div className="grid-container">
-        <header className="row">
+      {menuIsOpen ? (
+        <div className="burger">
+          <i className="fa fa-times" onClick={toggleMenu} />
+        </div>
+      ) : (
+        <div className="burger">
+          <i className="fa fa-bars" onClick={toggleMenu} />
+        </div>
+      )}
+      <header className="row" >
         <div className="logo">
           <Link to="/"><img src="/images/mtp-logo-white.png" alt="logo" height="80px"/></Link>
         </div>
-
-        <div className="nav-center">
-          <ul>
-            
-            <Link to="/?query=vetements">Vetements</Link>
-            <Link to="/?query=collections">Collections</Link>
-            <Link to="/?query=chaises">Chaises</Link>
-            <Link to="/?query=gaming">Gaming</Link>
-          </ul>
-        </div>
-        <div className="nav-right">
-          <Link to="/cart"><i className="fas fa-shopping-cart">{cartItems.length > 0 && (
-                <span className="badge">{cartItems.length}</span>
-              )}</i> 
-          </Link>
-         
-          
-          {
-            userInfo ?(
+        
+        <div className="row menu" ref={refMenu}>
+          <div className="nav-center">
+            <ul>
+              <div className="dropdown user-dropdown">
+                <div className="dropdown">  
+                  <Link to={`/?${CATEGORY}=vetements`}>Vetements<i className="fas fa-caret-down"/></Link>   
+                  <ul className="dropdown-content">
+                    <li className="see_all">
+                      <Link to="/see_all">Tout voir</Link>
+                    </li>
+                    <li>
+                      <Link to="/tops">Hauts</Link>
+                    </li>
+                    <li>
+                      <Link to="/bottoms">Bas</Link>
+                    </li>
+                    <li>
+                      <Link to="/hoodies-jacket">Sweat et vestes</Link>
+                    </li>
+                    <li>
+                      <Link to="/sportswear">Survetements</Link>
+                    </li>
+                    <li>
+                      <Link to="/accesories">Accesoires</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <div className="dropdown user-dropdown">
                 <div className="dropdown-item">
-                <Link to="#">{userInfo.firstName}  <i className="fas fa-caret-down"></i></Link> 
+                  <Link to={`/?${CATEGORY}=collections`}>Collections<i className="fas fa-caret-down"/></Link>
+                  <ul className="dropdown-content">
+                    <li className="see_all">
+                      <Link to="/see_all">Tout voir</Link>
+                    </li>
+                    <li>
+                      <Link to="/figures">Figurines</Link>
+                    </li>
+                    <li>
+                      <Link to="/statues">Statues</Link>
+                    </li>
+                    <li>
+                      <Link to="/plush">Peluches</Link>
+                    </li>
+                    <li>
+                      <Link to="/accesories">Accesoires</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="dropdown user-dropdown">
+                <div className="dropdown-item">
+                  <Link to={`/?${CATEGORY}=chaises`}>Chaises<i className="fas fa-caret-down"/></Link>
+                </div>
+              </div>
+              <div className="dropdown user-dropdown">
+                <div className="dropdown-item">
+                  <Link to={`/?${CATEGORY}=gaming`}>Gaming<i className="fas fa-caret-down"/></Link>
+                  <ul className="dropdown-content">
+                    <li className="see_all">
+                      <Link to="/see_all">Tout voir</Link>
+                    </li>
+                    <li>
+                      <Link to={`/?${CATEGORY}=chaises`}>Chaises</Link>
+                    </li>
+                    <li>
+                      <Link to="/laptops">Tapis</Link>
+                    </li>
+                    <li>
+                      <Link to="/mouses">Souris</Link>
+                    </li>
+                    <li>
+                      <Link to="/keyboards">Claviers</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </ul>
+          </div>
+          <Route render={({ history }) => <SearchBox history={history} />} />
+          <div className="nav-right">
+            <Link to="/cart"><i className="fas fa-shopping-cart">{cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}</i> 
+            </Link>
+         
+            {userInfo ? (
+              <div className="dropdown user-dropdown">
+                <div className="dropdown-item">
+                <Link to="#">{userInfo.firstName}  <i className="fas fa-caret-down"/></Link> 
                   <ul className="dropdown-content">
                   <li>
                       <Link to="/orderHistory">Historique des achats</Link>
@@ -80,7 +181,7 @@ function App() {
               userInfo && userInfo.isAdmin && (
                 <div className="dropdown">
                   <Link to="#admin">
-                    Admin <i className="fa fa-caret-down"></i>
+                    Admin <i className="fa fa-caret-down"/>
                   </Link>
                   <ul className="dropdown-content">
                     <li>
@@ -98,10 +199,12 @@ function App() {
                   </ul>
                 </div>
               )}
+          </div>
         </div>
       </header>
         
       <main> 
+      <Route path={`${SEARCH_QUERY}=:name`} component={SearchScreen} exact />
         <Route path="/placeOrder/:id" component={PlaceOrderScreen}/> 
         <Route path="/orderHistory" component={OrderHistoryScreen}/>
         <Route path="/orderConfirmation/:id/paid" component={OrderConfirmationScreen}/>
@@ -111,11 +214,7 @@ function App() {
         <Route path="/signin" component={SigninScreen}/>
         <Route path="/cart/:id?"component={CartScreen}/>
         <Route path="/product/:id" component={ProductScreen} exact></Route>
-        <Route
-            path="/product/:id/edit"
-            component={ProductEditScreen}
-            exact
-          ></Route>
+        <Route path="/product/:id/edit" component={ProductEditScreen} exact />
         <Route path="/" component={HomeScreen} exact/>
         <PrivateRoute
             path="/profile"
@@ -140,7 +239,11 @@ function App() {
 
       </main>
       <footer className="row center">
-       Copyright © 2020 Montpellier Talent Players - <a href="/politique"> &nbsp;Politique de confidentialité   </a> &nbsp;- <a href="/mention"> &nbsp;Mentions légales</a>
+        <i>Copyright © 2020 Montpellier Talent Players </i> 
+        <Link to="/politique"> &nbsp;POLITIQUE DE CONFIDENTIALITÉ  </Link>
+        <Link to="/legal-info"> &nbsp;POLITIQUE SUR LES COOKIES </Link>
+        <Link to="/politique"> &nbsp;CONDITIONS D'UTILISATION </Link> 
+        <Link to="/mention"> &nbsp;MENTIONS LÉGALES</Link>
       </footer>
     </div>
   </BrowserRouter>
