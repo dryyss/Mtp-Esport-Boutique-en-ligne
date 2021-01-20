@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <div className="grid-container">
       <header className="row">
-      <div className="logo">
+        <div className="logo">
           <Link to="/"><img src="/images/mtp-logo-white.png" alt="logo" height="80px"/></Link>
         </div>
         

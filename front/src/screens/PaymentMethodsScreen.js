@@ -44,7 +44,7 @@ export default function PaymentMethodsScreen(props) {
       const { data } = await Axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}&currency=EUR`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}&currency`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);

@@ -9,16 +9,16 @@ export default function Footer() {
         <div className="style-footer">
           <div className="grid">
             <div className="logo">
-              <img src="/images/mtp-logo-white.png" alt="logo" height="80px"/>
+              <img src="/images/mtp-logo-white.png" alt="logo" width="100px" height="1000px"/>
             </div>
             <div className="footer-main-link"> 
             <div className="footer-header">Boutique</div>
               <div className="footer-boutique">
                 <ul>
-                  <li><Link to={`/?${CATEGORY}=vetements`}>VETEMENTS</Link></li>
-                  <li><Link to={`/?${CATEGORY}=collections`}>COLLECTIONS</Link></li>
-                  <li><Link to={`/?${CATEGORY}=chaises`}>CHAISES</Link></li>
-                  <li><Link to={`/?${CATEGORY}=gaming`}>GAMING</Link></li>
+                  <li><Link to={`/?${CATEGORY}=vetements`}><strong>VETEMENTS</strong></Link></li>
+                  <li><Link to={`/?${CATEGORY}=collections`}><strong>COLLECTIONS</strong></Link></li>
+                  <li><Link to={`/?${CATEGORY}=chaises`}><strong>CHAISES</strong></Link></li>
+                  <li><Link to={`/?${CATEGORY}=gaming`}><strong>GAMING</strong></Link></li>
                 </ul>  
               </div>
             </div>
@@ -27,11 +27,11 @@ export default function Footer() {
               <div className="footer-support"></div>
               
                 <ul>
-                  <li><Link to="/order-lookup">ETAT DE LA  COMMANDE</Link></li>
-                  <li><Link to="/faqs">FAQS</Link></li>
-                  <li><Link to="/shipping">INFO DE LIVRAISON</Link></li>
-                  <li><Link to="/contact">NOUS CONTACTER</Link></li>
-                  <li><Link to="/returns">POLITIQUE DE RETOUR</Link></li> 
+                  <li><Link to="/order-lookup"><strong>ETAT DE LA  COMMANDE</strong></Link></li>
+                  <li><Link to="/faqs"><strong>FAQS</strong></Link></li>
+                  <li><Link to="/shipping"><strong>INFO DE LIVRAISON</strong></Link></li>
+                  <li><Link to="/contact"><strong>NOUS CONTACTER</strong></Link></li>
+                  <li><Link to="/returns"><strong>POLITIQUE DE RETOUR</strong></Link></li> 
                 </ul>  
             </div>
           </div>

@@ -46,13 +46,22 @@ main {
   padding: 10rem;
 }
 /* Footer */
-
+footer {
+  position: relative;
+  background-color: rgb(36 24 37);
+  color: rgb(172 143 187);
+  padding: 5rem 0px 0px;
+}
 footer a {
   color: #fff;
   font-size: 1.2rem;
   padding-left: 5rem;
   padding-right: 5rem;
 }
+/* .footer-boutique {
+  margin-left: 10px;
+  left: 10px;
+} */
 .bot-policy {
   position: relative;
   height: auto;
@@ -60,14 +69,14 @@ footer a {
   -webkit-box-align: center;
   align-items: center;
   flex-wrap: wrap;
-  background: rgb(43, 42, 41);
+  background: rgb(39 33 43);
   color: rgb(189, 189, 189);
   padding: 1.5rem 0px;
   margin-top: 5rem;
 }
 footer img {
   display: block;
-  width: 6.5rem;
+  width: 10rem;
   height: auto;
   margin-top: 0.75rem;
 }
@@ -81,12 +90,7 @@ footer img {
   grid-template-columns: repeat(3, 1fr);
   gap: 4.8rem 2.4rem;
 }
-footer {
-  position: relative;
-  background-color: rgb(37, 36, 35);
-  color: rgb(101, 100, 98);
-  padding: 5rem 0px 0px;
-}
+
 /* Common */
 h1 {
   font-size: 2.5rem;
