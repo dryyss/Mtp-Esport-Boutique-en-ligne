@@ -1,53 +1,161 @@
-import { userInfo } from 'os'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import { signout } from '../actions/userActions';
+import { CATEGORY } from '../constants/routes';
+import SearchBox from './SearchBox';
 
 export default function Header() {
-    const cart = useSelector((state) => state.cart);
+  const refMenu = useRef(null);
+  // const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const userSignin = useSelector(state => state.userSignin);
   const {userInfo} = userSignin; 
   const dispatch = useDispatch();
-  
-    const signoutHandler =() =>{
-        dispatch(signout());    
-      }
-    return (
-        <header className="row">
-        <div className="logo">
-          <Link to="/"><img src="/images/telechargement.png" alt="logo" height="80px"/></Link>
+  const signoutHandler =() =>{
+    dispatch(signout());    
+  }
+  return (
+    <div className="grid-container">
+      <header className="row">
+      <div className="logo">
+          <Link to="/"><img src="/images/mtp-logo-white.png" alt="logo" height="80px"/></Link>
         </div>
-
-        <div className="nav-center">
-          <ul>
-            
-            <Link to="/vetements">Vetements</Link>
-            <Link to="/collections">Collections</Link>
-            <Link to="/chaises">Chaises</Link>
-            <Link to="/gaming">Gaming</Link>
-          </ul>
-        </div>
-        <div className="nav-right">
-          <Link to="/cart"><i className="fas fa-shopping-cart">{cartItems.length > 0 && (
+        
+        <div className="row menu" ref={refMenu}>
+          <div className="nav-center">
+            <ul>
+              <div className="dropdown user-dropdown">
+                <div className="dropdown">  
+                  <Link to={`/?${CATEGORY}=vetements`}>Vetements<i className="fas fa-caret-down"/></Link>   
+                  <ul className="dropdown-content">
+                    <li className="see_all">
+                      <Link to={`/?${CATEGORY}=vetements`}>Tout voir</Link>
+                    </li>
+                    <li>
+                      <Link to="/tops">Hauts</Link>
+                    </li>
+                    <li>
+                      <Link to="/bottoms">Bas</Link>
+                    </li>
+                    <li>
+                      <Link to="/hoodies-jacket">Sweat et vestes</Link>
+                    </li>
+                    <li>
+                      <Link to="/sportswear">Survetements</Link>
+                    </li>
+                    <li>
+                      <Link to="/accesories">Accesoires</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="dropdown user-dropdown">
+                <div className="dropdown-item">
+                  <Link to={`/?${CATEGORY}=collections`}>Collections<i className="fas fa-caret-down"/></Link>
+                  <ul className="dropdown-content">
+                  <li className="see_all">
+                      <Link to={`/?${CATEGORY}=collections`}>Tout voir</Link>
+                    </li>
+                    <li>
+                      <Link to="/figures">Figurines</Link>
+                    </li>
+                    <li>
+                      <Link to="/statues">Statues</Link>
+                    </li>
+                    <li>
+                      <Link to="/plush">Peluches</Link>
+                    </li>
+                    <li>
+                      <Link to="/accesories">Accesoires</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="dropdown user-dropdown">
+                <div className="dropdown-item">
+                  <Link to={`/?${CATEGORY}=chaises`}>Chaises<i className="fas fa-caret-down"/></Link>
+                </div>
+                
+              </div>
+              <div className="dropdown user-dropdown">
+                <div className="dropdown-item">
+                  <Link to={`/?${CATEGORY}=gaming`}>Gaming<i className="fas fa-caret-down"/></Link>
+                  <ul className="dropdown-content">
+                    <li className="see_all">
+                      <Link to={`/?${CATEGORY}=gaming`}>Tout voir</Link>
+                    </li>
+                    <li>
+                      <Link to={`/?${CATEGORY}=chaises`}>Chaises</Link>
+                    </li>
+                    <li>
+                      <Link to="/laptops">Tapis</Link>
+                    </li>
+                    <li>
+                      <Link to="/mouses">Souris</Link>
+                    </li>
+                    <li>
+                      <Link to="/keyboards">Claviers</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </ul>
+          </div>
+          <Route render={({ history }) => <SearchBox history={history} />} />
+          <div className="nav-right">
+            <Link to="/cart"><i className="fas fa-shopping-cart">{cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
               )}</i> 
-          </Link>
-          {
-            userInfo ?(
+            </Link>
+         
+            {userInfo ? (
               <div className="dropdown user-dropdown">
-              <Link to="#">{userInfo.name} <i className="fas fa-caret-down"></i></Link> 
-                <ul className="dropdown-content">
-                  <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
-                </ul>
+                <div className="dropdown-item">
+                <Link to="#">{userInfo.firstName}  <i className="fas fa-caret-down"/></Link> 
+                  <ul className="dropdown-content">
+                  <li>
+                      <Link to="/orderHistory">Historique des achats</Link>
+                    </li>
+                    <li>
+                      <Link to="/profile">Mon Compte</Link>
+                    </li>
+                    <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
+                  </ul>
+                </div>
               </div>
               ) : (
                 <div className="nav-right">
-                <Link to ="/register">Inscription</Link> <Link to ="/signin">Connexion</Link></div>
+                  <Link to ="/register">Inscription</Link>
+                   <Link to ="/signin">Connexion</Link>
+                </div>
               )}
+              {
+              userInfo && userInfo.isAdmin && (
+                <div className="dropdown">
+                  <Link to="#admin">
+                    Admin <i className="fa fa-caret-down"/>
+                  </Link>
+                  <ul className="dropdown-content">
+                    <li>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                      <Link to="/productlist">Products</Link>
+                    </li>
+                    <li>
+                      <Link to="/orderlist">Orders</Link>
+                    </li>
+                    <li>
+                      <Link to="/userlist">Users</Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
+          </div>
         </div>
       </header>
-   
-    )
+    </div>
+  )
 }

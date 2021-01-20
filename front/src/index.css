@@ -45,16 +45,47 @@ main {
   grid-area: main;
   padding: 10rem;
 }
-footer {
-  grid-area: footer;
-  background-color: #000000;
-  color: #ffffff;
-  font-size: 1.2rem;
-}
+/* Footer */
+
 footer a {
+  color: #fff;
   font-size: 1.2rem;
   padding-left: 5rem;
   padding-right: 5rem;
+}
+.bot-policy {
+  position: relative;
+  height: auto;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: rgb(43, 42, 41);
+  color: rgb(189, 189, 189);
+  padding: 1.5rem 0px;
+  margin-top: 5rem;
+}
+footer img {
+  display: block;
+  width: 6.5rem;
+  height: auto;
+  margin-top: 0.75rem;
+}
+.style-footer {
+  width: 100%;
+  margin: 0px auto;
+  padding: 0px 2.5rem;
+}
+.style-footer .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4.8rem 2.4rem;
+}
+footer {
+  position: relative;
+  background-color: rgb(37, 36, 35);
+  color: rgb(101, 100, 98);
+  padding: 5rem 0px 0px;
 }
 /* Common */
 h1 {
@@ -183,10 +214,10 @@ header a {
   word-spacing: 0.5rem;
   display: inline;
 }
-.nav-center li {
+/* .nav-center li {
   list-style: none;
   display: inline;
-}
+} */
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -216,11 +247,6 @@ header a {
   justify-content: center;
 }
 
-/* Footer */
-footer a {
-  color: #fff;
-}
-
 /* Image */
 img {
   border: 0.5rem;
@@ -244,6 +270,9 @@ img.medium {
   overflow: hidden;
 }
 /* Black Block Right */
+.black-blocs .danger {
+  color: #ea2027;
+}
 .black-blocs {
   background: #6f1e51 !important;
   color: #ecf0f1 !important;
@@ -321,9 +350,9 @@ img.medium {
   color: #f3b407;
   margin: 0.1rem;
 }
-.note span:last-child {
+/* .note span:last-child {
   color: #000000;
-}
+} */
 .note span
 
 /* Alert */

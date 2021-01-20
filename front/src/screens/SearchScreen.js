@@ -11,13 +11,9 @@ export default function SearchScreen(props) {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
-
   useEffect(() => {
     dispatch(listProducts({ name: name !== 'all' ? name : '' }));
   }, [dispatch, name]);
-
-  console.log('=> ', products)
-
   return (
     <div>
       <div className="row">

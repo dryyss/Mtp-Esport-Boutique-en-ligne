@@ -8,7 +8,7 @@ export default function SearchBox(props) {
   const [displayResults, setDisplayResults] = useState(false);
   const productList = useSelector(state => state.productList);
   const {products = []} = productList;
-
+    
   const submitHandler = (e) => {
     e.preventDefault();
     props.history.push(`${SEARCH_QUERY}=${name}`);
