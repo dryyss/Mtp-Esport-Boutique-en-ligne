@@ -51,7 +51,7 @@ export default function PaymentMethodsScreen(props) {
       };
       document.body.appendChild(script);
     };
-    if (!order ||  (order && order._id !== orderId)) {
+    if (!order || (order && order._id !== orderId)) {
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -63,10 +63,11 @@ export default function PaymentMethodsScreen(props) {
       }
     }
   }, [dispatch, order, orderId, sdkReady, successPay]);
-    if (successPay){
-        dispatch({type:CART_EMPTY})
-        props.history.push(`/orderConfirmation/${order._id}/paid`)
-    }
+  if (successPay){
+    dispatch({type:CART_EMPTY})
+    props.history.push(`/orderConfirmation/${order._id}/paid`)
+  }
+
   const HandleGoBack = () => {    
     dispatch({type: ORDER_CREATE_RESET})
     history.goBack()
@@ -76,13 +77,13 @@ export default function PaymentMethodsScreen(props) {
   };
 
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <LoadingBox />
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-<div>
-    <CheckoutSteps  shipping_method payment_method ></CheckoutSteps>
-    <div className="d_flex gap-20">
+    <div>
+      <CheckoutSteps  shipping_method payment_method ></CheckoutSteps>
+      <div className="d_flex gap-20">
         <div className="step-sections">
             <div className="content-box">
                 <div className="review-block">
@@ -180,12 +181,12 @@ export default function PaymentMethodsScreen(props) {
                     
                     </ul>
                 </div>    
-                     {/* <div className="step_footer">   
-                             <Link to="/shipping_methods"><i class="fas fa-arrow-circle-left"></i>Retour aux informations utilisateur</Link>
-                             <button className="button  payment-button" disabled={order.orderItems.length=== 0} type="submit" onSubmit={submitHandler}>
-                                 Payer Maintenant
-                             </button>
-                     </div>  */}
+              {/* <div className="step_footer">   
+                <Link to="/shipping_methods"><i class="fas fa-arrow-circle-left"></i>Retour aux informations utilisateur</Link>
+                <button className="button  payment-button" disabled={order.orderItems.length=== 0} type="submit" onSubmit={submitHandler}>
+                  Payer Maintenant
+                </button>
+              </div> */}
             </div>
         </div> 
    );

@@ -17,7 +17,11 @@ const {
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_RESET,
-} = require('../constants/productConstants');
+  PRODUCT_REVIEW_CREATE_REQUEST,
+  PRODUCT_REVIEW_CREATE_SUCCESS,
+  PRODUCT_REVIEW_CREATE_FAIL,
+  PRODUCT_REVIEW_CREATE_RESET,
+} = require("../constants/productConstants");
 
 export const productListReducer = (
   state = { loading: true, products: [] },
@@ -27,7 +31,7 @@ export const productListReducer = (
     case PRODUCT_LIST_REQUEST:
       return { ...state, loading: true };
     case PRODUCT_LIST_SUCCESS:
-      return {...state,  loading: false, products: action.payload };
+      return { ...state, loading: false, products: action.payload };
     case PRODUCT_LIST_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
@@ -41,37 +45,42 @@ export const productDetailsReducer = (
 ) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
-      return { ...state,  loading: true };
+      return { ...state, loading: true };
     case PRODUCT_DETAILS_SUCCESS:
-      return {...state,  loading: false, product: action.payload };
+      return { ...state, loading: false, product: action.payload };
     case PRODUCT_DETAILS_FAIL:
-      return {...state,  loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
 };
-export const productCreateReducer = (state= {}, action) => {
-switch (action.type) {
-  case PRODUCT_CREATE_REQUEST:
-    return {...state,  loading: true };
-  case PRODUCT_CREATE_SUCCESS:
-    return { ...state, loading: false, success:true,  product: action.payload };
-  case PRODUCT_CREATE_FAIL:
-    return { ...state, loading: false, error: action.payload };
-  case PRODUCT_CREATE_RESET: 
-    return {};
-  default:
-    return state;
-}
+export const productCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_CREATE_REQUEST:
+      return { ...state, loading: true };
+    case PRODUCT_CREATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        product: action.payload,
+      };
+    case PRODUCT_CREATE_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case PRODUCT_CREATE_RESET:
+      return {};
+    default:
+      return state;
+  }
 };
 export const productUpdateReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_UPDATE_REQUEST:
-      return {...state, loading: true };
+      return { ...state, loading: true };
     case PRODUCT_UPDATE_SUCCESS:
-      return {...state, loading: false, success: true };
+      return { ...state, loading: false, success: true };
     case PRODUCT_UPDATE_FAIL:
-      return {...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     case PRODUCT_UPDATE_RESET:
       return {};
     default:
@@ -81,12 +90,31 @@ export const productUpdateReducer = (state = {}, action) => {
 export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_DELETE_REQUEST:
-      return {...state, loading: true };
+      return { ...state, loading: true };
     case PRODUCT_DELETE_SUCCESS:
-      return {...state, loading: false, success: true };
+      return { ...state, loading: false, success: true };
     case PRODUCT_DELETE_FAIL:
-      return {...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     case PRODUCT_DELETE_RESET:
+    default:
+      return state;
+  }
+};
+export const productReviewCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_REVIEW_CREATE_REQUEST:
+      return { ...state, loading: true };
+    case PRODUCT_REVIEW_CREATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        review: action.payload,
+      };
+    case PRODUCT_REVIEW_CREATE_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case PRODUCT_REVIEW_CREATE_RESET:
+      return {};
     default:
       return state;
   }

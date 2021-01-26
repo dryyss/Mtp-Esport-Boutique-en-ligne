@@ -1,29 +1,27 @@
-import React, { useRef, useState } from 'react'
+import React, { forwardRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route } from 'react-router-dom'
 import { signout } from '../actions/userActions';
 import { CATEGORY } from '../constants/routes';
 import SearchBox from './SearchBox';
 
-export default function Header() {
-  const refMenu = useRef(null);
-  // const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
-  const userSignin = useSelector(state => state.userSignin);
-  const {userInfo} = userSignin; 
-  const dispatch = useDispatch();
-  const signoutHandler =() =>{
-    dispatch(signout());    
-  }
-  return (
-    <div className="grid-container">
-      <header className="row main-header">
+const Header = forwardRef(
+  (props, ref) => {
+    const cart = useSelector((state) => state.cart);
+    const { cartItems } = cart;
+    const userSignin = useSelector(state => state.userSignin);
+    const {userInfo} = userSignin; 
+    const dispatch = useDispatch();
+    const signoutHandler =() =>{
+      dispatch(signout());    
+    }
+    
+    return (
+      <header className="row">
         <div className="logo">
           <Link to="/"><img src="/images/mtp-logo-white.png" alt="logo" height="80px"/></Link>
         </div>
-        
-        <div className="row menu" ref={refMenu}>
+        <div className="row menu" ref={ref}>
           <div className="nav-center">
             <ul>
               <div className="dropdown user-dropdown">
@@ -109,7 +107,7 @@ export default function Header() {
                 <span className="badge">{cartItems.length}</span>
               )}</i> 
             </Link>
-         
+          
             {userInfo ? (
               <div className="dropdown user-dropdown">
                 <div className="dropdown-item">
@@ -126,13 +124,13 @@ export default function Header() {
                     <li>
                       <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
                     </li> 
-                 </ul>
+                  </ul>
                 </div>
               </div>
               ) : (
                 <div className="nav-right">
                   <Link to ="/register">Inscription</Link>
-                   <Link to ="/signin">Connexion</Link>
+                    <Link to ="/signin">Connexion</Link>
                 </div>
               )}
               {
@@ -160,6 +158,8 @@ export default function Header() {
           </div>
         </div>
       </header>
-    </div>
-  )
-}
+    )
+  }
+);
+
+export default Header;

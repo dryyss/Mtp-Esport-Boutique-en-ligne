@@ -63,6 +63,7 @@ import {
       case ORDER_PAY_FAIL:
         return {...state, loading: false, error: action.payload };
       case ORDER_PAY_RESET:
+        return {};
       default:
         return state;
     }
@@ -102,6 +103,7 @@ import {
       case ORDER_DELETE_FAIL:
         return {...state, loading: false, error: action.payload };
       case ORDER_DELETE_RESET:
+        return {};
       default:
         return state;
     }
@@ -115,6 +117,7 @@ import {
       case ORDER_DELIVER_FAIL:
         return {...state, loading: false, error: action.payload };
       case ORDER_DELIVER_RESET:
+        return {};
       default:
         return state;
     }

@@ -1,8 +1,7 @@
 import React from 'react'
 import CheckoutSteps from '../components/CheckoutSteps'
-import Axios from 'axios';
 import _get from 'lodash/get';
-import { useEffect, useState } from 'react';
+import { useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { detailsOrder } from '../actions/orderActions';
@@ -11,44 +10,28 @@ import MessageBox from '../components/MessageBox';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 export default function OrderConfirmationScreen(props) {
-
-       
+  const dispatch = useDispatch();
   const orderId = props.match.params.id;
-  const [sdkReady, setSdkReady] = useState(false);
   const orderDetails = useSelector((state) => state.orderDetails);
-  const { order, loading, error } = orderDetails;
+  const { order, loading: loadingDetails, error: errorDetails } = orderDetails;
 
   const orderPay = useSelector((state) => state.orderPay);
   const {
+    // loading: loadingPay,
     success: successPay,
   } = orderPay;
-  const dispatch = useDispatch();
+
   useEffect(() => {
-    const addPayPalScript = async () => {
-      const { data } = await Axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}&currency=EUR`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
-    if (!order || (order && order._id !== orderId)) {
+    if (!order || successPay || (order && order._id !== orderId)) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(detailsOrder(orderId));
     }
-    if (successPay){
-      dispatch({ type: ORDER_PAY_RESET });
-    }
-  }, [dispatch, order, orderId, sdkReady, successPay]);
+  }, [dispatch, order, orderId, successPay]);
 
-
-  return loading ? (
+  return loadingDetails ? (
     <LoadingBox></LoadingBox>
-  ) : error ? (
-    <MessageBox variant="danger">{error}</MessageBox>
+  ) : errorDetails ? (
+    <MessageBox variant="danger">{errorDetails}</MessageBox>
   ) : (
     <div>
     <CheckoutSteps  shipping_method payment_method  order_confirmation></CheckoutSteps>
