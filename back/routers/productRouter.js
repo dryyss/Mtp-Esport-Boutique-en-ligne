@@ -97,4 +97,37 @@ productRouter.delete(
     }
   })
 );
+productRouter.post(
+  "/:id/reviews",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      if (product.reviews.find((x) => x.firstName === req.user.firstName)) {
+        return res.status(400).send({
+          message: "Vous avez déja poster un commentaire sur cette article",
+        });
+      }
+      const review = {
+        firstName: req.user.firstName,
+        note: Number(req.body.note),
+        comment: req.body.comment,
+      };
+      product.reviews.push(review);
+      product.numReviews = product.reviews.length;
+      product.note =
+        product.reviews.reduce((a, c) => c.note + a, 0) /
+        product.reviews.length;
+      const updatedProduct = await product.save();
+      res.status(201).send({
+        message: "Votre avis à bien éte reçu",
+        review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+      });
+    } else {
+      res.status(404).send({ message: "Product Not Found" });
+    }
+  })
+);
+
 export default productRouter;

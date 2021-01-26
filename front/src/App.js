@@ -28,6 +28,7 @@ import FaqsScreens from "./screens/FaqsScreens";
 import ShippingInfoScreen from "./screens/ShippingInfoScreen";
 import ConstactUsScreen from "./screens/ConstactUsScreen";
 import ReturnsScrenn from "./screens/ReturnsScrenn";
+import MapsScreen from "./screens/MapsScreen";
 
 function App() {
   const refMenu = useRef(null);
@@ -125,6 +126,7 @@ function App() {
           <Route path="/product/:id" component={ProductScreen} exact></Route>
           <Route path="/product/:id/edit" component={ProductEditScreen} exact />
           <Route path="/" component={HomeScreen} exact />
+          <PrivateRoute path="/map" component={MapsScreen}></PrivateRoute>
           <PrivateRoute
             path="/profile"
             component={ProfileScreen}

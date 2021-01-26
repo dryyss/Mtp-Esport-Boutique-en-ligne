@@ -1,40 +1,43 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import path from 'path';
-import productRouter from './routers/productRouter.js';
-import userRouter from './routers/userRouter.js';
-import orderRouter from './routers/orderRouter.js';
-import uploadRouter from './routers/uploadRouter.js';
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import path from "path";
+import productRouter from "./routers/productRouter.js";
+import userRouter from "./routers/userRouter.js";
+import orderRouter from "./routers/orderRouter.js";
+import uploadRouter from "./routers/uploadRouter.js";
 
 dotenv.config();
 
-const app = express(); 
+const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/MtpBoutique', {
+mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/MtpBoutique", {
   useNewUrlParser: true,
-  useUnifiedTopology:true,
+  useUnifiedTopology: true,
   useCreateIndex: true,
 });
 
-app.use('/api/uploads', uploadRouter);
-app.use('/api/users', userRouter);
-app.use('/api/products', productRouter);
-app.use('/api/order', orderRouter);
-app.get('/api/config/paypal', (req, res) => {
-  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+app.use("/api/uploads", uploadRouter);
+app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
+app.use("/api/order", orderRouter);
+app.get("/api/config/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || "sb");
+});
+app.get("/api/config/google", (req, res) => {
+  res.send(process.env.GOOGLE_API_KEY || "");
 });
 const __dirname = path.resolve();
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-app.get('/', (req, res) => {
-  res.send('Server is ready');
+app.get("/", (req, res) => {
+  res.send("Server is ready");
 });
 
-app.use((err,req, res, next)=> {
-  res.status(500).send({message: err.message});
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
 });
 
 const port = process.env.PORT || 4000;
