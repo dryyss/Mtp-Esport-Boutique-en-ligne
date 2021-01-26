@@ -1,6 +1,8 @@
 html {
   font-size: 62.5%;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
@@ -28,7 +30,39 @@ body {
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
 }
-
+/* header */
+header a {
+  color: #ffffff;
+  padding: 0.5rem;
+  word-spacing: 5px;
+}
+.nav-center {
+  right: 104px;
+  position: relative;
+  word-spacing: 2rem;
+}
+.nav-center a {
+  padding-left: 2rem;
+  padding-right: 1rem;
+}
+.nav-right {
+  word-spacing: 0.5rem;
+  display: inline;
+}
+/* .nav-center li {
+  list-style: none;
+  display: inline;
+} */
+.nav-center a:hover {
+  text-decoration: none;
+}
+.nav-center.dropdown-content a:hover {
+  text-decoration: underline;
+}
+.main-header {
+  position: sticky;
+  top: 0;
+}
 header {
   grid-area: header;
   padding-top: 1.5rem;
@@ -39,6 +73,27 @@ header {
     rgba(125, 18, 64, 1) 0%,
     rgba(54, 21, 70, 1) 100%
   );
+}
+.nav-center a:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  left: 20px;
+  height: 2px;
+  background-color: #ffffff;
+  /* Préparation de notre animation */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s;
+}
+.nav-center a:focus {
+  outline: none;
+}
+.nav-center a:hover:after,
+.nav-center a:focus:after {
+  opacity: 0.6;
+  transform: translateY(0);
 }
 
 main {
@@ -74,6 +129,9 @@ footer a {
   padding: 1.5rem 0px;
   margin-top: 5rem;
 }
+footer li {
+  margin-left: -50px;
+}
 footer img {
   display: block;
   width: 10rem;
@@ -84,6 +142,7 @@ footer img {
   width: 100%;
   margin: 0px auto;
   padding: 0px 2.5rem;
+  box-sizing: border-box;
 }
 .style-footer .grid {
   display: grid;
@@ -260,7 +319,7 @@ img.large {
 }
 img.small {
   max-width: 15rem;
-  width: 100%;
+  width: 50%;
 }
 img.medium {
   max-height: 40rem;
@@ -518,6 +577,7 @@ button {
 /*  */
 /* Checkout Steps */
 .checkout-steps > div {
+  font-size: 60%;
   border-top: 1rem #c0c0c0 solid;
   color: #c0c0c0;
   flex: 1;
@@ -555,13 +615,15 @@ button {
   display: inline block;
 }
 .sidebar {
+  margin-top: 45px;
   padding-top: 4rem;
-  background-color: #2b2a29;
-  color: #fff;
+  /* background-color: #2b2a29; */
+  /* color: #fff; */
   width: 38%;
   padding-left: 4%;
   background-position: left top;
   float: right;
+  border: #b1165a solid;
 }
 .row.product-sumary {
   margin-right: 2em;
@@ -772,6 +834,12 @@ hr {
   width: 75%;
   /* transform: translate(0px, 0); TODO bug */
 }
+.shipping-produt-price {
+  position: relative;
+  top: -6.3rem;
+  left: 41rem;
+}
+
 @media screen and (max-width: 910px) {
   .burger {
     display: block;

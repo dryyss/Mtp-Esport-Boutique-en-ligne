@@ -18,7 +18,7 @@ export default function Header() {
   }
   return (
     <div className="grid-container">
-      <header className="row">
+      <header className="row main-header">
         <div className="logo">
           <Link to="/"><img src="/images/mtp-logo-white.png" alt="logo" height="80px"/></Link>
         </div>
@@ -113,16 +113,20 @@ export default function Header() {
             {userInfo ? (
               <div className="dropdown user-dropdown">
                 <div className="dropdown-item">
-                <Link to="#">{userInfo.firstName}  <i className="fas fa-caret-down"/></Link> 
+                  <div className="nav-user-type">
+                    <Link to="#">{userInfo.firstName}  <i className="fas fa-caret-down"/></Link> 
+                  </div> 
                   <ul className="dropdown-content">
-                  <li>
+                    <li>
                       <Link to="/orderHistory">Historique des achats</Link>
                     </li>
                     <li>
                       <Link to="/profile">Mon Compte</Link>
                     </li>
-                    <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
-                  </ul>
+                    <li>
+                      <Link to="#signout" onClick={signoutHandler}>Deconnexion</Link>
+                    </li> 
+                 </ul>
                 </div>
               </div>
               ) : (

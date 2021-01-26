@@ -25,6 +25,7 @@ export default function ProductEditScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (successUpdate) {
+      alert('le Produit à bien été mis a jour')
       props.history.push('/productlist');
     }
     if (!product || product._id !== productId || successUpdate) {
