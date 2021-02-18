@@ -6,7 +6,6 @@ const subCategory = new mongoose.Schema({
 const reviewSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true },
-
     comment: { type: String, required: true },
     note: { type: Number, required: true },
   },
